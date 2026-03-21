@@ -191,6 +191,33 @@
         padding-bottom: 25px; /* 为右下角的文字预留空间 */
     }
 
+    /* 图书馆特效 */
+            .library-text-effect {
+                color: #ffffff !important;
+                /* 多层阴影叠加实现：1-4层为硬边勾边，5-6层为柔和的黑色渐变扩散 */
+                text-shadow: 
+                    -1px -1px 0 #000,  
+                     1px -1px 0 #000,
+                    -1px  1px 0 #000,
+                     1px  1px 0 #000,
+                     0px  0px 8px rgba(0,0,0,0.8),
+                     0px  0px 15px rgba(0,0,0,0.6);
+                line-height: 1.6;
+            }
+            
+            h3.library-title {
+                color: #ffffff !important;
+                text-shadow: 
+                    -2px -2px 0 #000,  
+                     2px -2px 0 #000,
+                    -2px  2px 0 #000,
+                     2px  2px 0 #000,
+                     0px  0px 12px rgba(0,0,0,1);
+                border-bottom: 1px solid rgba(255,255,255,0.3);
+                padding-bottom: 5px;
+                display: inline-block;
+            }
+
     </style>
 </head>
 <body>
@@ -257,8 +284,8 @@
             不过由于某些原因，除了魔人，有智慧的魔鬼与恶魔受到了限制，无法离开地狱。
         </div>
         
-        <h3>大图书馆 (Great Library)</h3>
-        <div class="text-block">
+        <h3 class="library-title">大图书馆 (Great Library)</h3>
+        <div class="text-block library-text-effect">
             只有部分智者宣称前往过此地。<br>
             一个璀璨的，如同水晶一般的，装载着数不清的粹晶的巨大图书馆，似乎永无尽头。里面装载着奥米拉格大陆的所有知识，也装载着不属于这片大陆的知识。<br>
             在偶尔会打开一道缝隙，从中投射出无数粹晶，如同灿烂的流星雨坠落于世界各地。
@@ -270,10 +297,11 @@
     <details class="parchment-section" open>
         <summary class="section-header">冒险者协会</summary>
         <div class="parchment-body">
-            <div class="text-block">坐落于晨曦帝国的首都，道恩霍姆。
-位于城市的正中央。在刻有冒险者协会的大门后是前台与一块偌大告示板，左右两侧四通八达，通往锻造区，居住区等各种建筑。主体由白色的花岗岩砌成，佐以青色框架与金色配饰，拱门前挂有盾与剑的协会标识。
-因各种种族之间频发的问题与委托而逐渐形成完整的产业链，后逐渐体制化。在其他国家与地区也多多少少建有其他分部。
-一定程度上也承接着交易中枢的工作，即使没有委托要求，也可以鉴定与在这里买入卖出事物。</div>
+            <div class="text-block">
+            坐落于晨曦帝国的首都，道恩霍姆。<br>
+            位于城市的正中央。在刻有冒险者协会的大门后是前台与一块偌大告示板，左右两侧四通八达，通往锻造区，居住区等各种建筑。主体由白色的花岗岩砌成，佐以青色框架与金色配饰，拱门前挂有盾与剑的协会标识。<br>
+            因各种种族之间频发的问题与委托而逐渐形成完整的产业链，后逐渐体制化。在其他国家与地区也多多少少建有其他分部。<br>
+            一定程度上也承接着交易中枢的工作，即使没有委托要求，也可以鉴定与在这里买入卖出事物。</div>
             
             <h3>职业圣殿</h3>
             <div class="text-block">各大圣殿坐落于道恩霍姆的四角。负责四大职业的认证，升级，以及相关职业卷轴的购买与打造。</div>
