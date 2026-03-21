@@ -218,6 +218,102 @@
                 display: inline-block;
             }
 
+    /* 容器布局 */
+    .element-container {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 15px;
+        justify-content: center;
+        padding: 10px;
+    }
+
+    /* 元素项 */
+    .element-item {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        cursor: pointer;
+        transition: transform 0.2s;
+        min-width: 60px;
+    }
+
+    .element-item:hover { transform: scale(1.05); }
+
+    /* 圆圈样式 */
+    .element-circle {
+        width: 50px;
+        height: 50px;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-weight: bold;
+        box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+        border: 2px solid rgba(255,255,255,0.5);
+        z-index: 2;
+    }
+
+    /* 各元素底色与文字颜色 */
+    .bg-water   { background-color: #2196F3; color: #ffffff; }
+    .bg-fire    { background-color: #f44336; color: #ffffff; }
+    .bg-thunder { background-color: #9c27b0; color: #ffffff; }
+    .bg-wind    { background-color: #81d4fa; color: #004d40; } /* 浅蓝绿配深色字 */
+    .bg-light   { background-color: #ffeb3b; color: #333333; }
+    .bg-dark    { background-color: #212121; color: #ffffff; }
+    .bg-life    { background-color: #4caf50; color: #ffffff; }
+    .bg-earth   { background-color: #795548; color: #ffffff; }
+    .bg-space   { background-color: #bdc3c7; color: #2c3e50; }
+
+    /* 连接组布局 */
+    .element-group-link {
+        display: flex;
+        align-items: flex-start; /* 确保圆圈对齐，盒子在各自下方 */
+        gap: 0;
+        position: relative;
+    }
+
+    .element-connector {
+        width: 20px;
+        height: 2px;
+        background: #888;
+        margin-top: 25px; /* 位于圆圈中心高度 */
+        z-index: 1;
+    }
+
+    /* 弹出文本框 */
+    .element-info-box {
+        display: none; /* 默认隐藏 */
+        margin-top: 8px;
+        padding: 8px;
+        background: rgba(255, 255, 255, 0.9);
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        font-size: 0.85em;
+        max-width: 120px;
+        text-align: center;
+        box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        word-break: break-all;
+    }
+
+    /* 按钮样式 */
+    .element-btn {
+        background: #f5f5f5;
+        border: 1px solid #ccc;
+        padding: 4px 10px;
+        cursor: pointer;
+        font-size: 0.8em;
+        border-radius: 3px;
+    }
+    .element-btn:hover { background: #e0e0e0; }
+
+    /* 手机端适配：当盒子打开时，不挤压彼此 */
+    @media (max-width: 600px) {
+        .element-info-box {
+            position: relative;
+            max-width: 100px;
+        }
+    }
+
     </style>
 </head>
 <body>
@@ -402,7 +498,77 @@
         </div>
     </details>
 
-    <!-- 4. 属性 -->
+<!-- 4. 元素 -->
+<details class="parchment-section" open>
+    <summary class="section-header">元素定义</summary>
+    <div class="parchment-body">
+        <div class="text-block">
+            世间存在诸多不同元素，根据其特性分成了简单的大类。人们更倾向于以更细分的元素去命名武器或者生物，例如“带毒的狼”或“水晶螃蟹”。
+        </div>
+
+        <!-- 元素控制按钮 -->
+        <div style="margin-bottom: 15px; text-align: right;">
+            <button onclick="toggleAllElements(true)" class="element-btn">全部展开</button>
+            <button onclick="toggleAllElements(false)" class="element-btn">全部收纳</button>
+        </div>
+
+        <div class="element-container">
+            <!-- 水与火 (连接组) -->
+            <div class="element-group-link">
+                <div class="element-item" onclick="toggleElement('el-water')">
+                    <div class="element-circle bg-water">水</div>
+                    <div id="el-water" class="element-info-box">包括：毒、冰。</div>
+                </div>
+                <div class="element-connector"></div>
+                <div class="element-item" onclick="toggleElement('el-fire')">
+                    <div class="element-circle bg-fire">火</div>
+                    <div id="el-fire" class="element-info-box">包括：岩浆与高温。</div>
+                </div>
+            </div>
+
+            <!-- 雷、风、生命、大地、空间 (独立组) -->
+            <div class="element-item" onclick="toggleElement('el-thunder')">
+                <div class="element-circle bg-thunder">雷</div>
+                <div id="el-thunder" class="element-info-box">包括：电流与雷鸣。</div>
+            </div>
+
+            <div class="element-item" onclick="toggleElement('el-wind')">
+                <div class="element-circle bg-wind">风</div>
+                <div id="el-wind" class="element-info-box">包括：疾风、气压。</div>
+            </div>
+
+            <!-- 光与暗 (连接组) -->
+            <div class="element-group-link">
+                <div class="element-item" onclick="toggleElement('el-light')">
+                    <div class="element-circle bg-light">光</div>
+                    <div id="el-light" class="element-info-box">包括：净化、实体光、驱散。</div>
+                </div>
+                <div class="element-connector"></div>
+                <div class="element-item" onclick="toggleElement('el-dark')">
+                    <div class="element-circle bg-dark">暗</div>
+                    <div id="el-dark" class="element-info-box">包括：侵蚀、影子。</div>
+                </div>
+            </div>
+
+            <div class="element-item" onclick="toggleElement('el-life')">
+                <div class="element-circle bg-life">生命</div>
+                <div id="el-life" class="element-info-box">包括：树木、生机与死亡。</div>
+            </div>
+
+            <div class="element-item" onclick="toggleElement('el-earth')">
+                <div class="element-circle bg-earth">大地</div>
+                <div id="el-earth" class="element-info-box">包括：金、土、晶石。</div>
+            </div>
+
+            <div class="element-item" onclick="toggleElement('el-space')">
+                <div class="element-circle bg-space">空间</div>
+                <div id="el-space" class="element-info-box">包括：位面、次元与连接。</div>
+            </div>
+        </div>
+    </div>
+</details>
+
+    <!-- 5. 属性 -->
     <details class="parchment-section" open>
         <summary class="section-header">属性定义</summary>
         <div class="parchment-body">
@@ -425,7 +591,7 @@
         </div>
     </details>
 
-    <!-- 5. 职业 -->
+    <!-- 6. 职业 -->
     <details class="parchment-section" open>
         <summary class="section-header">职业划分</summary>
         <div class="parchment-body">
@@ -595,6 +761,24 @@
         const btns = btn.parentElement.querySelectorAll('.tab-btn');
         btns.forEach(b => b.classList.remove('active'));
         btn.classList.add('active');
+    }
+
+    // 切换单个显示
+    function toggleElement(id) {
+        const target = document.getElementById(id);
+        if (target.style.display === "block") {
+            target.style.display = "none";
+        } else {
+            target.style.display = "block";
+        }
+    }
+
+    // 全部打开或收纳
+    function toggleAllElements(show) {
+        const boxes = document.querySelectorAll('.element-info-box');
+        boxes.forEach(box => {
+            box.style.display = show ? "block" : "none";
+        });
     }
 </script>
 
