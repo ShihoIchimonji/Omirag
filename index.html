@@ -163,6 +163,34 @@
         h3::before { content: '◈'; margin-right: 10px; font-size: 0.8em; color: var(--accent-gold); }
         .text-block { white-space: pre-wrap; margin-bottom: 20px; }
         strong { color: #8d4e3a; }
+
+    /* 颤动动画效果 */
+    @keyframes shake-animation {
+        0% { transform: translate(0, 0); }
+        25% { transform: translate(1px, 1px); }
+        50% { transform: translate(-1px, -1px); }
+        75% { transform: translate(1px, -1px); }
+        100% { transform: translate(0, 0); }
+    }
+
+    .shake-text {
+        display: inline-block;
+        font-size: 0.85em;
+        color: #8b0000; /* 深红色，表现出一种抓狂感 */
+        font-style: italic;
+        animation: shake-animation 0.2s infinite;
+        position: absolute;
+        bottom: 5px;
+        right: 10px;
+        opacity: 0.8;
+    }
+
+    /* 为星耀之森的正文框提供定位基点 */
+    .relative-box {
+        position: relative;
+        padding-bottom: 25px; /* 为右下角的文字预留空间 */
+    }
+
     </style>
 </head>
 <body>
@@ -174,42 +202,66 @@
     </header>
 
     <div class="welcome-letter">
-        你好！冒险者，欢迎来到奥米拉格大陆——的自由联邦的冒险者协会！这里有来自世界各地的冒险者，也包括像您一样的新晋冒险者。你们的日常将会由执行委托，解决麻烦构成，并且因此去往世界各地，体验不同的风俗人情与各式各样的故事。<br><br>
+        你好！冒险者，欢迎来到奥米拉格大陆的冒险者协会！这里有来自世界各地的冒险者，也包括像您一样的新晋冒险者。你们的日常将会由执行委托，解决麻烦构成，并且因此去往世界各地，体验不同的风俗人情与各式各样的故事。<br><br>
         然而在说这些未来的展望之前，还是请您大致理解一下我们的构成，以及填写您的个人信息已方便录入。
     </div>
-
-    <!-- 1. 国家与地理 -->
-    <details class="parchment-section" open>
-        <summary class="section-header">国家与地理</summary>
-        <div class="parchment-body">
-            <h3>晨曦帝国</h3>
-            <div class="text-block">晨曦帝国是冒险者协会总部所在地，也是人类文明的璀璨明珠。</div>
-            
-            <h3>乌玛帝国</h3>
-            <div class="text-block">（此处为乌玛帝国的地理与风土人情占位符）</div>
-            
-            <h3>星耀之森</h3>
-            <div class="text-block">（此处为星耀之森的地理与风土人情占位符）</div>
-            
-            <h3>天穹龙巢</h3>
-            <div class="text-block">（此处为天穹龙巢的地理与风土人情占位符）</div>
-            
-            <h3>大地熔炉</h3>
-            <div class="text-block">（此处为大地熔炉的地理与风土人情占位符）</div>
-            
-            <h3>地狱</h3>
-            <div class="text-block">（此处为地狱的地理与风土人情占位符）</div>
-            
-            <h3>大图书馆</h3>
-            <div class="text-block">（此处为大图书馆的地理与风土人情占位符）</div>
+<!-- 1. 国家与地理 -->
+<details class="parchment-section" open>
+    <summary class="section-header">国家与地理</summary>
+    <div class="parchment-body">
+        <div class="text-block">
+            奥米拉格是一个复杂且多变的世界。在长久的历史与演变之中逐渐分化，沉淀成不同的势力。这里仅对<strong>势力规模大，并且人数众多</strong>的势力进行记录，小国，与众不同的地方等，就需要您勇于探索了。
         </div>
-    </details>
+
+        <h3>晨曦帝国 (Dawn Empire)</h3>
+        <div class="text-block">
+            位于地图最中央的，由人类创办的帝国，首都为<strong>黎明之乡，道恩霍姆</strong>。包容性强，各大种族多多少少都会从中中转或在晨曦帝国的领土内交易，甚至定居。教廷与皇庭互相牵制，在领土内的各地都有设有神庙。<br>
+            领土广度惊人，西方与乌玛帝国接壤的雪山与草原，南方与星耀之森接壤的森林，东侧的海洋与绵长的海岸线，几乎囊括了大多数地理环境。当然，也因为领土过大，本地的人类的外貌会出现不少差异。<br>
+            现在的王庭为<strong>西格利特家族</strong>，教廷信仰启明神恩德，相信神明会在迷途或前途灰暗时给予启明，指引信徒前往最适合的未来。也存在其他信仰，但启明神占据大多数。
+        </div>
+        
+        <h3>乌玛帝国 (Uma Empire)</h3>
+        <div class="text-block">
+            位于晨曦帝国以西，以广袤的草原、雪山与戈壁为主体的军事强国。由兽人主导建立，推崇力量与荣誉，社会结构以部落联盟为基础，以兽人王为最高统治者。<br>
+            乌玛对晨曦帝国持谨慎的竞争态度，边境时有摩擦但鲜有大规模战争。信仰以各大种族的先祖之灵与自然图腾为主，也有部分部落崇拜风暴与战争之神。有着丰富的自然资源。<br>
+            当前的王庭为<strong>狮子兽人</strong>。部分神话与传说生物为原型的兽人会倾向以家族的形式居住于城市中，也有部分会在自己的部落内称王。
+        </div>
+        
+        <h3>星耀之森 (Starry Forest)</h3>
+        <div class="text-block relative-box">
+            位于晨曦帝国以南，被绵密的原始森林覆盖的精灵国度。由精灵主导，社会结构松散，以多个聚居地自治为主，各聚居地由长老或德鲁伊领袖管理。<br>
+            核心聚居地为银月城<strong>卢纳里斯</strong>与金阳城<strong>索拉多恩</strong>，由象征日月的两位精灵女皇管理。坐落于森林深处的湖泊之畔。精灵与自然共生，极少主动扩张领土，但对侵入者态度严厉，也同样的不是那么欢迎其他种族在此定居。产出不少蕴含魔力的特殊资源。<br>
+            星耀之森与晨曦帝国保持友好通商关系，信仰以自然与星辰为核心，部分聚居地崇拜月亮或太阳，少数精灵信仰远古的森林之灵。不喜欢乌玛帝国的兽人，觉得他们有点太野蛮了。
+            <span class="shake-text">“他█的，这里的树怎么全在打我！”</span>
+        </div>
+        
+        <h3>大地熔炉 (Earth Forge)</h3>
+        <div class="text-block">
+            主要由矮人与地底种族构成的国度，深埋于崇山峻岭与地壳深处。这里不仅是矿产的源泉，更是全大陆最精良兵器的诞生地。空气中永远弥漫着金属与炭火的气息。
+        </div>
+
+        <h3>天穹龙巢 (Sky Dragon's Nest)</h3>
+        <div class="text-block">
+            在传说中驻扎于云朵之上，只有足够强大的龙或得到指引的生物才能来到此地。由于其高度与云雾遮蔽，凡人的肉眼极难窥见其全貌。
+        </div>
+        
+        <h3>地狱 (Hell)</h3>
+        <div class="text-block">
+            魔人的故乡，充满硫磺味与极端环境的异位面。虽然与物质界有裂隙相连，但极少有人能从那里活着回来。
+        </div>
+        
+        <h3>大图书馆 (Great Library)</h3>
+        <div class="text-block">
+            独立于任何国家之外的知识圣地，粹晶技术的发源地。这里保存着奥米拉格最古老的记忆。
+        </div>
+    </div>
+</details>
 
     <!-- 2. 冒险者协会 -->
     <details class="parchment-section" open>
         <summary class="section-header">冒险者协会</summary>
         <div class="parchment-body">
-            <div class="text-block">坐落于晨曦帝国的首都，黎明之乡，道恩霍姆。
+            <div class="text-block">坐落于晨曦帝国的首都，道恩霍姆。
 位于城市的正中央。在刻有冒险者协会的大门后是前台与一块偌大告示板，左右两侧四通八达，通往锻造区，居住区等各种建筑。主体由白色的花岗岩砌成，佐以青色框架与金色配饰，拱门前挂有盾与剑的协会标识。
 因各种种族之间频发的问题与委托而逐渐形成完整的产业链，后逐渐体制化。在其他国家与地区也多多少少建有其他分部。
 一定程度上也承接着交易中枢的工作，即使没有委托要求，也可以鉴定与在这里买入卖出事物。</div>
@@ -473,12 +525,12 @@
 
                 <!-- 兽人 -->
                 <div id="orc" class="pane race-pane">
-                    <div class="text-block">与人类一样，都是分布相对广泛的种族，多以部落的形式居住，也有一些兽人创造了自己的国度与城市。拥有兽耳兽尾，根据其种族也会有拥有羽翼或角，也有完全覆盖皮毛或者脑袋为兽形的个体。</div>
+                    <div class="text-block">与人类一样，都是分布相对广泛的种族，多以部落的形式居住，也有一些兽人创造了自己的国度与城市。拥有兽耳兽尾，根据其种族也会有拥有羽翼或角，也有完全覆盖皮毛或者脑袋为兽形的个体。多数兽人并不认为自己与自己的原型生物是同一个种族，但是如果在他们面前吃相对应的生物还是会被视作挑衅。</div>
                     <table class="trait-table">
                         <tr><th>特性名</th><th>特性介绍</th><th>增幅属性</th></tr>
                         <tr><td>野兽感官</td><td>你的感官比其他种族更为敏锐，也同时包括直觉与第六感等综合素质。</td><td>敏捷</td></tr>
                         <tr><td>兽化</td><td>你拥有和其他兽人相比更为灵活的身体。你可以选择部分身体部位进行兽化，在愈发熟练之后也许可以完全化作野兽。</td><td>力量</td></tr>
-                        <tr><td>特质</td><td>基于你所倾向的种族产生变化。在使用传说物种作为种族倾向时，获得法术能力。</td><td>—</td></tr>
+                        <tr><td>特质</td><td>基于你所倾向的种族产生变化。在使用传说物种作为种族倾向时，获得法术能力，<strong>在获得法术能力时，智力+</strong>。</td><td>—</td></tr>
                     </table>
                 </div>
 
