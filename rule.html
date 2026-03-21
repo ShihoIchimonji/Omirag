@@ -69,6 +69,7 @@
             z-index: 10;
         }
 
+        /* 折叠分区与钉子装饰 */
         .parchment-section {
             margin-bottom: 40px;
             width: 100%;
@@ -88,8 +89,13 @@
             color: #4e342e;
             text-align: center;
             min-width: 250px;
+            cursor: pointer;
+            list-style: none;
+            outline: none;
+            transition: transform 0.2s;
         }
 
+        /* 钉子装饰 */
         .section-header::before, .section-header::after {
             content: '';
             position: absolute;
@@ -103,6 +109,9 @@
         }
         .section-header::before { left: 10px; }
         .section-header::after { right: 10px; }
+
+        .section-header::-webkit-details-marker { display: none; }
+        .section-header:hover { transform: scale(1.02) rotate(-0.5deg); }
 
         .parchment-body {
             background: var(--paper-base);
@@ -119,53 +128,38 @@
         .text-block { white-space: pre-wrap; margin-bottom: 20px; }
         strong { color: #8d4e3a; }
 
-        /* 对话框示例样式 */
-        .example-box {
+        /* 例子方框样式 */
+        .example-container {
             border: 2px solid var(--border-brown);
             padding: 25px;
-            background: rgba(255, 255, 255, 0.2);
+            background: rgba(255, 255, 255, 0.1);
             margin: 20px 0;
             display: flex;
             flex-direction: column;
             gap: 20px;
         }
 
-        .chat-msg {
-            max-width: 80%;
+        .chat-row { display: flex; width: 100%; }
+        .chat-left { justify-content: flex-start; }
+        .chat-right { justify-content: flex-end; }
+
+        .bubble {
+            max-width: 70%;
             padding: 15px;
-            border-radius: 8px;
-            position: relative;
-            line-height: 1.6;
-            box-shadow: 2px 2px 10px rgba(0,0,0,0.1);
-        }
-
-        .msg-player {
-            align-self: flex-start;
-            background: var(--paper-darker);
             border: 1px solid var(--border-brown);
+            position: relative;
+            background: rgba(255,255,255,0.3);
         }
 
-        .msg-host {
-            align-self: flex-end;
-            background: #dcc28a;
-            border: 1px solid #8d4e3a;
-            text-align: left;
-        }
+        .bubble-player { background: var(--paper-darker); }
+        .bubble-host { background: #dcc28a; text-align: left; }
 
-        .msg-tag {
-            font-size: 0.8em;
-            font-weight: bold;
-            margin-bottom: 5px;
-            display: block;
-            color: #5d3a1a;
-        }
-
-        .trait-text {
-            font-size: 0.9em;
-            color: #6d4c41;
-            border-top: 1px dashed var(--border-brown);
+        .trait-box {
             margin-top: 10px;
-            padding-top: 5px;
+            padding-top: 10px;
+            border-top: 1px dashed var(--border-brown);
+            font-size: 0.9em;
+            color: #5d3a1a;
             font-style: italic;
         }
 
@@ -176,7 +170,7 @@
 <div class="container">
     <header>
         <h1>奥米拉格大陆：档案录入</h1>
-        <p style="color: var(--paper-darker); opacity: 0.8;">—— 冒险者协会个人信息登记处 ——</p>
+        <p style="color: var(--paper-darker); opacity: 0.8;">—— 冒险者协会官方指南（第二页） ——</p>
     </header>
 
     <div class="welcome-letter">
@@ -185,8 +179,8 @@
     </div>
 
     <!-- 玩家档案 -->
-    <div class="parchment-section">
-        <div class="section-header">玩家档案</div>
+    <details class="parchment-section" open>
+        <summary class="section-header">玩家档案</summary>
         <div class="parchment-body">
             <div class="text-block">
                 您将作为一位青铜级别的冒险者加入，并获得青铜级别武器×1，护甲x1。您可以自由定义其外观，种类和风格，前提是不超出该级别。<br>
@@ -218,11 +212,11 @@
                 <strong>技能：</strong>
             </div>
         </div>
-    </div>
+    </details>
 
     <!-- 参与冒险 -->
-    <div class="parchment-section">
-        <div class="section-header">参与冒险</div>
+    <details class="parchment-section" open>
+        <summary class="section-header">参与冒险</summary>
         <div class="parchment-body">
             <div class="text-block">
                 在完成档案，进入群聊后，您会注意到群的置顶公告上存在一块巨大的告示板。在告示板上张贴着委托的标题，介绍，评级，最大可接人数，以及主持这次委托的主持人。<br>
@@ -231,18 +225,20 @@
                 在使用特性、属性、技能、装备时，您需要在发言的最后贴上相对应的文本，方便主持人进行及时判定。
             </div>
 
-            <div class="example-box">
-                <div class="chat-msg msg-player">
-                    <span class="msg-tag">冒险者 A</span>
-                    我警惕的低下身去，借助我轻盈的特性，悄悄地走进这个山洞内部，尝试不惊扰任何山洞内的生物。
-                    <div class="trait-text">
-                        轻盈- 你的步伐如同在林间穿梭的风。你几乎不会从高处坠落而摔伤，走在冰面、树枝等不稳定表面时也能如履平地，并且你的行动总是悄无声息。敏捷+
+            <div class="example-container">
+                <div class="chat-row chat-left">
+                    <div class="bubble bubble-player">
+                        <strong>A：</strong>我警惕的低下身去，借助我轻盈的特性，悄悄地走进这个山洞内部，尝试不惊扰任何山洞内的生物。
+                        <div class="trait-box">
+                            轻盈- 你的步伐如同在林间穿梭的风。你几乎不会从高处坠落而摔伤，走在冰面、树枝等不稳定表面时也能如履平地，并且你的行动总是悄无声息。敏捷+
+                        </div>
                     </div>
                 </div>
 
-                <div class="chat-msg msg-host">
-                    <span class="msg-tag">主持人</span>
-                    好的。那么你的特性成功发挥了作用，你没有造成任何声音就摸进了这个山洞。山洞显得低压压的，每隔数十米就有一盏昏黄的油灯提供可怜的照明。你走到尽头，发现里面居住着一群地精，正在享用抢劫来的食物。
+                <div class="chat-row chat-right">
+                    <div class="bubble bubble-host">
+                        <strong>主持人：</strong>好的。那么你的特性成功发挥了作用，你没有造成任何声音就摸进了这个山洞。山洞显得低压压的，每隔数十米就有一盏昏黄的油灯提供可怜的照明。你走到尽头，发现里面居住着一群地精，正在享用抢劫来的食物。
+                    </div>
                 </div>
             </div>
 
@@ -251,7 +247,7 @@
                 在确认完成之后，您将收获功绩、金币、素材或粹晶的奖励。
             </div>
         </div>
-    </div>
+    </details>
 </div>
 
 </body>
