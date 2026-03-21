@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <title>奥米拉格大陆 - 冒险者入职申请</title>
+    <style>
+        :root {
+            --bg-dark: #1a0f08;
+            --paper-base: #f2e1b9;
+            --paper-darker: #e6d2a1;
+            --border-brown: #5d3a1a;
+            --accent-gold: #d4af37;
+            --text-main: #2b1d0e;
+            --magic-glow: rgba(212, 175, 55, 0.4);
+        }
+
+        body {
+            background-color: var(--bg-dark);
+            background-image: radial-gradient(circle at center, transparent 0%, rgba(0,0,0,0.4) 100%), url('https://www.transparenttextures.com/patterns/dark-wood.png');
+            color: var(--text-main);
+            font-family: "Palatino Linotype", "Book Antiqua", Palatino, "Microsoft YaHei", serif;
+            margin: 0;
+            padding: 50px 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .container { max-width: 950px; width: 100%; }
+
+        header {
+            text-align: center;
+            color: var(--accent-gold);
+            margin-bottom: 60px;
+            text-shadow: 0 0 15px rgba(212, 175, 55, 0.5), 2px 2px 5px rgba(0,0,0,0.8);
+        }
+
+        /* 欢迎信笺 */
+        .welcome-letter {
+            background: var(--paper-base);
+            padding: 35px 80px 35px 45px;
+            margin-bottom: 50px;
+            border: 1px solid var(--border-brown);
+            box-shadow: 4px 4px 20px rgba(0,0,0,0.6);
+            line-height: 1.8;
+            position: relative;
+            background-image: url('https://www.transparenttextures.com/patterns/paper-fibers.png');
+        }
+
+        /* 火漆印章 */
+        .welcome-letter::after {
+            content: '录入';
+            position: absolute;
+            top: 5px;
+            right: 10px;
+            width: 55px;
+            height: 55px;
+            background: #8b0000;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--accent-gold);
+            font-weight: bold;
+            font-size: 0.75em;
+            box-shadow: inset 0 0 10px rgba(0,0,0,0.5), 2px 2px 5px rgba(0,0,0,0.5);
+            transform: rotate(15deg);
+            border: 2px solid #5a0000;
+            z-index: 10;
+        }
+
+        .parchment-section {
+            margin-bottom: 40px;
+            width: 100%;
+        }
+
+        .section-header {
+            background: var(--paper-darker);
+            border: 1px solid var(--border-brown);
+            padding: 12px 40px;
+            width: fit-content;
+            margin: 0 auto -15px auto;
+            position: relative;
+            z-index: 5;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.4);
+            font-size: 1.6em;
+            font-weight: bold;
+            color: #4e342e;
+            text-align: center;
+            min-width: 250px;
+        }
+
+        .section-header::before, .section-header::after {
+            content: '';
+            position: absolute;
+            width: 14px;
+            height: 14px;
+            background: radial-gradient(circle at 30% 30%, #a1887f, #332211);
+            border-radius: 50%;
+            top: 50%;
+            transform: translateY(-50%);
+            box-shadow: 1px 1px 2px rgba(0,0,0,0.5);
+        }
+        .section-header::before { left: 10px; }
+        .section-header::after { right: 10px; }
+
+        .parchment-body {
+            background: var(--paper-base);
+            background-image: url('https://www.transparenttextures.com/patterns/paper-fibers.png');
+            border: 1px solid var(--border-brown);
+            padding: 45px 55px;
+            box-shadow: 8px 8px 25px rgba(0,0,0,0.7);
+            line-height: 1.8;
+        }
+
+        h3 { border-bottom: 2px solid var(--border-brown); padding-bottom: 8px; margin-top: 35px; color: #4e342e; display: flex; align-items: center; }
+        h3::before { content: '◈'; margin-right: 10px; font-size: 0.8em; color: var(--accent-gold); }
+        
+        .text-block { white-space: pre-wrap; margin-bottom: 20px; }
+        strong { color: #8d4e3a; }
+
+        /* 对话框示例样式 */
+        .example-box {
+            border: 2px solid var(--border-brown);
+            padding: 25px;
+            background: rgba(255, 255, 255, 0.2);
+            margin: 20px 0;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .chat-msg {
+            max-width: 80%;
+            padding: 15px;
+            border-radius: 8px;
+            position: relative;
+            line-height: 1.6;
+            box-shadow: 2px 2px 10px rgba(0,0,0,0.1);
+        }
+
+        .msg-player {
+            align-self: flex-start;
+            background: var(--paper-darker);
+            border: 1px solid var(--border-brown);
+        }
+
+        .msg-host {
+            align-self: flex-end;
+            background: #dcc28a;
+            border: 1px solid #8d4e3a;
+            text-align: left;
+        }
+
+        .msg-tag {
+            font-size: 0.8em;
+            font-weight: bold;
+            margin-bottom: 5px;
+            display: block;
+            color: #5d3a1a;
+        }
+
+        .trait-text {
+            font-size: 0.9em;
+            color: #6d4c41;
+            border-top: 1px dashed var(--border-brown);
+            margin-top: 10px;
+            padding-top: 5px;
+            font-style: italic;
+        }
+
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <header>
+        <h1>奥米拉格大陆：档案录入</h1>
+        <p style="color: var(--paper-darker); opacity: 0.8;">—— 冒险者协会个人信息登记处 ——</p>
+    </header>
+
+    <div class="welcome-letter">
+        恭喜您已经读完了奥米拉格大陆的全部信息，接下来便是在冒险者协会录入您的个人信息，参与冒险的时刻！<br>
+        请收下这份协助您的指南，熟读如何参与冒险。
+    </div>
+
+    <!-- 玩家档案 -->
+    <div class="parchment-section">
+        <div class="section-header">玩家档案</div>
+        <div class="parchment-body">
+            <div class="text-block">
+                您将作为一位青铜级别的冒险者加入，并获得青铜级别武器×1，护甲x1。您可以自由定义其外观，种类和风格，前提是不超出该级别。<br>
+                与此同时，您携带10枚金币，拥有家缠万贯时，修正为25枚金币。<br>
+                除此之外，您的背景应当是一位初出茅庐的青年，或者从未涉猎过的成年人，由于各种原因选择来到晨曦帝国的首都，决定成为一位冒险者。由于旧伤降级，曾经是高评级冒险者的设定是不被允许的，我们更希望看到相同起跑线的冒险者。
+            </div>
+
+            <h3>人设档案</h3>
+            <div class="text-block">
+                <strong>姓名：</strong><br>
+                <strong>性别：</strong><br>
+                <strong>年龄：</strong><br>
+                <strong>种族：</strong><br>
+                <strong>性格：</strong><br>
+                <strong>外貌：</strong><br>
+                <strong>背景：</strong><br>
+                <strong>备注：</strong>
+            </div>
+
+            <h3>冒险档案</h3>
+            <div class="text-block">
+                <strong>阶级：</strong><br>
+                <strong>属性：</strong><br>
+                <strong>金币：</strong><br>
+                <strong>特性：</strong><br>
+                <strong>武器：</strong><br>
+                <strong>装备：</strong><br>
+                <strong>道具：</strong><br>
+                <strong>技能：</strong>
+            </div>
+        </div>
+    </div>
+
+    <!-- 参与冒险 -->
+    <div class="parchment-section">
+        <div class="section-header">参与冒险</div>
+        <div class="parchment-body">
+            <div class="text-block">
+                在完成档案，进入群聊后，您会注意到群的置顶公告上存在一块巨大的告示板。在告示板上张贴着委托的标题，介绍，评级，最大可接人数，以及主持这次委托的主持人。<br>
+                在与志同道合的伙伴们商讨过后，您可以在任务群内报备并at主持人，开始本次委托。<br>
+                主持人将会根据您的行动来回应，推进委托，饰演这片世界，并且判定您行动最终的成果。因此，您应当保持活跃，不操控，控制判定，并且做出符合角色的行为。<br>
+                在使用特性、属性、技能、装备时，您需要在发言的最后贴上相对应的文本，方便主持人进行及时判定。
+            </div>
+
+            <div class="example-box">
+                <div class="chat-msg msg-player">
+                    <span class="msg-tag">冒险者 A</span>
+                    我警惕的低下身去，借助我轻盈的特性，悄悄地走进这个山洞内部，尝试不惊扰任何山洞内的生物。
+                    <div class="trait-text">
+                        轻盈- 你的步伐如同在林间穿梭的风。你几乎不会从高处坠落而摔伤，走在冰面、树枝等不稳定表面时也能如履平地，并且你的行动总是悄无声息。敏捷+
+                    </div>
+                </div>
+
+                <div class="chat-msg msg-host">
+                    <span class="msg-tag">主持人</span>
+                    好的。那么你的特性成功发挥了作用，你没有造成任何声音就摸进了这个山洞。山洞显得低压压的，每隔数十米就有一盏昏黄的油灯提供可怜的照明。你走到尽头，发现里面居住着一群地精，正在享用抢劫来的食物。
+                </div>
+            </div>
+
+            <div class="text-block">
+                您的目标是完成委托的要求，并且通过任意途径将消息告知冒险者协会。<br>
+                在确认完成之后，您将收获功绩、金币、素材或粹晶的奖励。
+            </div>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>
