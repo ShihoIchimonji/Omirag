@@ -314,6 +314,44 @@
         }
     }
 
+/* 翻页导航容器 */
+.nav-footer {
+    width: 100%;
+    max-width: 950px;
+    margin-top: 20px;
+    margin-bottom: 50px;
+    display: flex;
+    justify-content: space-between; /* 确保左右对齐 */
+    padding: 0 10px;
+}
+
+/* 翻页链接基础样式 */
+.nav-link {
+    text-decoration: none;
+    color: #5d3a1a;
+    font-weight: bold;
+    font-size: 1.1em;
+    padding: 10px 25px;
+    background: var(--paper-darker);
+    border: 1px solid var(--border-brown);
+    box-shadow: 3px 3px 10px rgba(0,0,0,0.4);
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    background-image: url('https://www.transparenttextures.com/patterns/paper-fibers.png');
+}
+
+/* 悬停效果 */
+.nav-link:hover {
+    background-color: var(--accent-gold);
+    color: #fff;
+    transform: translateY(-3px);
+    box-shadow: 5px 5px 15px rgba(0,0,0,0.6);
+}
+
+.nav-prev { margin-right: auto; } /* 居左 */
+.nav-next { margin-left: auto; }  /* 居右 */
+
     </style>
 </head>
 <body>
@@ -700,7 +738,7 @@
                     <table class="trait-table">
                         <tr><th>特性名</th><th>特性介绍</th><th>增幅属性</th></tr>
                         <tr><td>自然为伴</td><td>树木、藤蔓与林间的野兽会回应你的呼唤。你能模糊地感知自然的情绪，并让植物为你提供微小的帮助。这个效果在您没有法术能力时仍然有效，与此同时赋予您使用生命与自然魔法的能力。</td><td>智力</td></tr>
-                        <tr><td>月光/太阳亲和</td><td>你与天体的联系极为紧密。在白天的阳光下或夜晚的月光中，你的精力恢复得更快，并能以此为基础，施展与光、影或净化相关的能力。在选择词条特性时，从日月之间选择其一。</td><td>—</td></tr>
+                        <tr><td>月光/太阳亲和</td><td>你与天体的联系极为紧密。在白天的阳光下或夜晚的月光中，你的精力恢复得更快，并能以此为基础，施展与光、影或净化相关的能力。在选择词条特性时，从日月之间选择其一。</td><td>智力</td></tr>
                         <tr><td>轻盈</td><td>你的步伐如同在林间穿梭的风。你几乎不会从高处坠落而摔伤，走在冰面、树枝等不稳定表面时也能如履平地，并且你的行动总是悄无声息。</td><td>敏捷</td></tr>
                     </table>
                 </div>
@@ -751,6 +789,10 @@
             </div>
         </div>
     </details>
+
+<div class="nav-footer">
+    <a href="rule.html" class="nav-link nav-next">点击这里前往下一页（规则录入） →</a>
+</div>
 </div>
 
 <script>
