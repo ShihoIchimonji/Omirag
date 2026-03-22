@@ -12,10 +12,14 @@
             --accent-gold: #d4af37;
             --text-main: #2b1d0e;
             --magic-glow: rgba(212, 175, 55, 0.4);
+            /* 金属货币色 */
+            --coin-copper: #b87333;
+            --coin-silver: #8e8e8e;
+            --coin-gold: #aa8800;
         }
 
         * {
-            box-sizing: border-box; /* 确保宽度计算包含边框和内边距 */
+            box-sizing: border-box;
         }
 
         body {
@@ -56,7 +60,6 @@
             background-image: url('https://www.transparenttextures.com/patterns/paper-fibers.png');
         }
 
-        /* 火漆印章 */
         .welcome-letter::after {
             content: '录入';
             position: absolute;
@@ -78,7 +81,7 @@
             z-index: 10;
         }
 
-        /* 折叠分区与钉子装饰 */
+        /* 折叠分区 */
         .parchment-section {
             margin-bottom: 40px;
             width: 100%;
@@ -104,7 +107,6 @@
             transition: transform 0.2s;
         }
 
-        /* 钉子装饰 */
         .section-header::before, .section-header::after {
             content: '';
             position: absolute;
@@ -137,6 +139,32 @@
         
         .text-block { white-space: pre-wrap; margin-bottom: 20px; }
         strong { color: #8d4e3a; }
+
+        /* 表格样式 */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 25px 0;
+            background: rgba(255,255,255,0.15);
+            table-layout: fixed;
+        }
+        th, td { border: 1px solid var(--border-brown); padding: 12px; text-align: left; word-wrap: break-word; }
+        th { background: rgba(93, 58, 26, 0.15); white-space: nowrap; font-weight: bold; color: #4e342e; }
+        
+        /* 通用表格列宽控制 */
+        .trait-table th:nth-child(1) { width: 120px; }
+        .trait-table td:nth-child(1) { font-weight: bold; color: #5d3a1a; }
+
+        /* 货币居中样式 */
+        .currency-exchange {
+            text-align: center;
+            font-size: 1.3em;
+            font-weight: bold;
+            margin: 30px 0;
+            padding: 15px;
+            background: rgba(0,0,0,0.05);
+            border-radius: 10px;
+        }
 
         /* 例子方框样式 */
         .example-container {
@@ -264,10 +292,114 @@
                     </div>
                 </div>
             </div>
+        </div>
+    </details>
+
+    <!-- 奖励 -->
+    <details class="parchment-section" open>
+        <summary class="section-header">奖励</summary>
+        <div class="parchment-body">
+            <div class="text-block">
+                在完成一次委托后，您会获得功绩、金币、素材/粹晶/装备的奖励。<br>
+                一次普通的，大致奥米拉格内1~3日的任务将会为您提供10~15功绩。<br>
+                根据您的评级与任务的危险性，金币的奖赏也会产生改变。
+            </div>
+
+            <table class="trait-table">
+                <thead>
+                    <tr>
+                        <th>冒险者评级</th>
+                        <th>金币奖赏范围</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr><td>青铜</td><td>10~20 金币</td></tr>
+                    <tr><td>白银</td><td>30~200 金币</td></tr>
+                    <tr><td>黄金</td><td>500~1500 金币</td></tr>
+                    <tr><td>白金</td><td>1500~上万金币</td></tr>
+                </tbody>
+            </table>
 
             <div class="text-block">
-                您的目标是完成委托的要求，并且通过任意途径将消息告知冒险者协会。<br>
-                在确认完成之后，您将收获功绩、金币、素材或粹晶的奖励。
+                多数时间，您所在的小队会获得2~5个素材/粹晶/装备，并且通常时间不超过您的评级。由于成果为全队共享，因此如果有多个人选择同一个素材时，则会进行<strong>拼点</strong>，出点最高的冒险者拿走此素材。<br>
+                您可以将这些售出给其他人，也可以售卖给冒险者协会。<br>
+                在拥有素材时，你可以提交不高于2的素材，寻找会锻造的人进行一次打造，来获得你想要的装备或效果。
+            </div>
+        </div>
+    </details>
+
+    <!-- 升级 -->
+    <details class="parchment-section" open>
+        <summary class="section-header">升级</summary>
+        <div class="parchment-body">
+            <div class="text-block">
+                在收集足够的功绩之后，便可以对冒险者协会申请认证。在明确您具备足够的能力后，便会获得晋级。作为认证奖励，您可以从冒险者协会侧获取一个相同评级的，免费的装备或粹晶。
+            </div>
+
+            <table class="trait-table">
+                <thead>
+                    <tr>
+                        <th>目标等级</th>
+                        <th>所需功绩</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr><td>青铜 → 白银</td><td>100 功绩</td></tr>
+                    <tr><td>白银 → 黄金</td><td>200 功绩</td></tr>
+                    <tr><td>黄金 → 白金</td><td>300 功绩</td></tr>
+                    <tr><td>白金 → 黑金</td><td>300 功绩</td></tr>
+                </tbody>
+            </table>
+
+            <div class="text-block">
+                在升级时，您技能的强度与您属性的强度都会产生一次大幅度的提升。
+            </div>
+        </div>
+    </details>
+
+    <!-- 贸易 -->
+    <details class="parchment-section" open>
+        <summary class="section-header">贸易</summary>
+        <div class="parchment-body">
+            <div class="text-block">
+                在奥米拉格大陆，货币的兑换为：
+            </div>
+
+            <div class="currency-exchange">
+                <span style="color: var(--coin-copper);">100 铜币</span> : 
+                <span style="color: var(--coin-silver);">10 银币</span> : 
+                <span style="color: var(--coin-gold);">1 金币</span>
+            </div>
+
+            <div class="text-block">
+                在冒险者协会的侧厅，常年驻扎着鉴定师、锻造师与粹晶工匠。你可以在此处将冒险中获得的素材、装备或粹晶出售给协会，也可以用金币购买所需的物资。<br>
+            </div>
+
+            <table class="trait-table">
+                <thead>
+                    <tr>
+                        <th>评级</th>
+                        <th>素材买入</th>
+                        <th>粹晶买入</th>
+                        <th>装备买入</th>
+                        <th>锻造费用</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr><td>青铜</td><td>8 金币</td><td>15 金币</td><td>23 金币</td><td>12 金币</td></tr>
+                    <tr><td>白银</td><td>45 金币</td><td>90 金币</td><td>135 金币</td><td>75 金币</td></tr>
+                    <tr><td>黄金</td><td>300 金币</td><td>600 金币</td><td>900 金币</td><td>525 金币</td></tr>
+                    <tr><td>白金</td><td>1200 金币</td><td>2400 金币</td><td>3600 金币</td><td>2250 金币</td></tr>
+                    <tr><td>黑金</td><td>4500 金币</td><td>9000 金币</td><td>13500 金币</td><td>8250 金币</td></tr>
+                </tbody>
+            </table>
+
+            <div class="text-block">
+                <strong>回收政策：</strong><br>
+                若你希望将物品进行出售，无论买家是协会还是冒险者，都统一要求以买入价的<strong>六成</strong>进行回收，但冒险者协会会额外收取成交价<strong>5%</strong>的手续费。例如，一件青铜装备的买入价为23金币，协会回收价约为13.8金币，扣除手续费后实际到手约为13.1金币。<br>
+                与此同时，除非关系亲密，低价的，甚至免费的交易是不被允许的。<br>
+                <strong>定制服务：</strong><br>
+                若你需要定制符合自身需求的粹晶，则在对应评级买入价的基础上，额外增加<strong>30%</strong>的定制费用。定制粹晶通常需要等待三至七日不等，具体时长由工匠的排期与素材的稀有程度决定。
             </div>
         </div>
     </details>
@@ -307,7 +439,7 @@
             </div>
         </div>
     </details>
-</div> 
+</div>
 
 </body>
 </html>
