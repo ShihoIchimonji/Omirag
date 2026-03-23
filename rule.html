@@ -2,7 +2,7 @@
 <html lang="zh-CN">
 <head>
     <meta charset="UTF-8">
-    <title>奥米拉格大陆 - 冒险者协会手册</title>
+    <title>奥米拉格大陆 - 冒险者入职申请</title>
     <style>
         :root {
             --bg-dark: #1a0f08;
@@ -12,6 +12,14 @@
             --accent-gold: #d4af37;
             --text-main: #2b1d0e;
             --magic-glow: rgba(212, 175, 55, 0.4);
+            /* 金属货币色 */
+            --coin-copper: #b87333;
+            --coin-silver: #8e8e8e;
+            --coin-gold: #aa8800;
+        }
+
+        * {
+            box-sizing: border-box;
         }
 
         body {
@@ -26,7 +34,12 @@
             align-items: center;
         }
 
-        .container { max-width: 950px; width: 100%; }
+        .container { 
+            max-width: 950px; 
+            width: 100%; 
+            display: flex;
+            flex-direction: column;
+        }
 
         header {
             text-align: center;
@@ -47,9 +60,8 @@
             background-image: url('https://www.transparenttextures.com/patterns/paper-fibers.png');
         }
 
-        /* 火漆印章位置 */
         .welcome-letter::after {
-            content: '协会';
+            content: '录入';
             position: absolute;
             top: 5px;
             right: 10px;
@@ -69,7 +81,7 @@
             z-index: 10;
         }
 
-        /* 折叠分区与钉子装饰 */
+        /* 折叠分区 */
         .parchment-section {
             margin-bottom: 40px;
             width: 100%;
@@ -95,7 +107,6 @@
             transition: transform 0.2s;
         }
 
-        /* 钉子装饰回归 */
         .section-header::before, .section-header::after {
             content: '';
             position: absolute;
@@ -120,7 +131,14 @@
             padding: 45px 55px;
             box-shadow: 8px 8px 25px rgba(0,0,0,0.7);
             line-height: 1.8;
+            width: 100%;
         }
+
+        h3 { border-bottom: 2px solid var(--border-brown); padding-bottom: 8px; margin-top: 35px; color: #4e342e; display: flex; align-items: center; }
+        h3::before { content: '◈'; margin-right: 10px; font-size: 0.8em; color: var(--accent-gold); }
+        
+        .text-block { white-space: pre-wrap; margin-bottom: 20px; }
+        strong { color: #8d4e3a; }
 
         /* 表格样式 */
         table {
@@ -130,189 +148,100 @@
             background: rgba(255,255,255,0.15);
             table-layout: fixed;
         }
-        th, td { border: 1px solid var(--border-brown); padding: 15px; text-align: left; word-wrap: break-word; }
-        th { background: rgba(93, 58, 26, 0.15); white-space: nowrap; }
+        th, td { border: 1px solid var(--border-brown); padding: 12px; text-align: left; word-wrap: break-word; }
+        th { background: rgba(93, 58, 26, 0.15); white-space: nowrap; font-weight: bold; color: #4e342e; }
         
         /* 通用表格列宽控制 */
         .trait-table th:nth-child(1) { width: 120px; }
-        .trait-table th:nth-child(2) { width: auto; }
-        .trait-table th:nth-child(3) { width: 100px; }
         .trait-table td:nth-child(1) { font-weight: bold; color: #5d3a1a; }
 
-        /* 魔法选项卡 */
-        .tab-container { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 25px; justify-content: center; }
-        .tab-btn {
-            padding: 10px 20px;
-            background: var(--paper-darker);
+        /* 货币居中样式 */
+        .currency-exchange {
+            text-align: center;
+            font-size: 1.3em;
+            font-weight: bold;
+            margin: 30px 0;
+            padding: 15px;
+            background: rgba(0,0,0,0.05);
+            border-radius: 10px;
+        }
+
+        /* 例子方框样式 */
+        .example-container {
+            border: 2px solid var(--border-brown);
+            padding: 25px;
+            background: rgba(255, 255, 255, 0.1);
+            margin: 20px 0;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .chat-row { display: flex; width: 100%; }
+        .chat-left { justify-content: flex-start; }
+        .chat-right { justify-content: flex-end; }
+
+        .bubble {
+            max-width: 70%;
+            padding: 15px;
             border: 1px solid var(--border-brown);
+            position: relative;
+            background: rgba(255,255,255,0.3);
+        }
+
+        .bubble-player { background: var(--paper-darker); }
+        .bubble-host { background: #dcc28a; text-align: left; }
+
+        .trait-box {
+            margin-top: 10px;
+            padding-top: 10px;
+            border-top: 1px dashed var(--border-brown);
+            font-size: 0.9em;
+            color: #5d3a1a;
+            font-style: italic;
+        }
+
+        /* 迷你舒展卷轴样式 */
+        .quest-scroll {
+            margin: 10px auto;
+            max-width: 320px;
+            border-left: 6px solid #8b4513;
+            border-right: 6px solid #8b4513;
+            background: #fff9eb;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.3);
+            transition: all 0.3s ease;
+        }
+
+        .quest-scroll summary {
+            padding: 8px;
             cursor: pointer;
+            list-style: none;
+            text-align: center;
             font-weight: bold;
             color: #5d3a1a;
-            transition: all 0.3s;
+            background: #d2b48c;
+            border-bottom: 1px solid #8b4513;
+            font-size: 0.85em;
         }
-        .tab-btn:hover { background: #dcc28a; box-shadow: 0 0 10px var(--magic-glow); }
-        .tab-btn.active { background: #4e342e; color: var(--accent-gold); border-color: var(--accent-gold); box-shadow: 0 0 15px var(--magic-glow); transform: scale(1.05); }
 
-        .content-box { border: 1px dashed var(--border-brown); padding: 30px; background: rgba(255, 255, 255, 0.2); min-height: 200px; }
-        .pane { display: none; animation: fadeIn 0.5s ease; }
-        .pane.active { display: block; }
+        .quest-scroll summary::-webkit-details-marker { display: none; }
 
-        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
-
-        h3 { border-bottom: 2px solid var(--border-brown); padding-bottom: 8px; margin-top: 35px; color: #4e342e; display: flex; align-items: center; }
-        h3::before { content: '◈'; margin-right: 10px; font-size: 0.8em; color: var(--accent-gold); }
-        .text-block { white-space: pre-wrap; margin-bottom: 20px; }
-        strong { color: #8d4e3a; }
-
-    /* 颤动动画效果 */
-    @keyframes shake-animation {
-        0% { transform: translate(0, 0); }
-        25% { transform: translate(1px, 1px); }
-        50% { transform: translate(-1px, -1px); }
-        75% { transform: translate(1px, -1px); }
-        100% { transform: translate(0, 0); }
-    }
-
-    .shake-text {
-        display: inline-block;
-        font-size: 0.85em;
-        color: #8b0000; /* 深红色，表现出一种抓狂感 */
-        font-style: italic;
-        animation: shake-animation 0.2s infinite;
-        position: absolute;
-        bottom: 5px;
-        right: 10px;
-        opacity: 0.8;
-    }
-
-    /* 为星耀之森的正文框提供定位基点 */
-    .relative-box {
-        position: relative;
-        padding-bottom: 25px; /* 为右下角的文字预留空间 */
-    }
-
-    /* 图书馆特效 */
-            .library-text-effect {
-                color: #ffffff !important;
-                /* 多层阴影叠加实现：1-4层为硬边勾边，5-6层为柔和的黑色渐变扩散 */
-                text-shadow: 
-                    -1px -1px 0 #000,  
-                     1px -1px 0 #000,
-                    -1px  1px 0 #000,
-                     1px  1px 0 #000,
-                     0px  0px 8px rgba(0,0,0,0.8),
-                     0px  0px 15px rgba(0,0,0,0.6);
-                line-height: 1.6;
-            }
-            
-            h3.library-title {
-                color: #ffffff !important;
-                text-shadow: 
-                    -2px -2px 0 #000,  
-                     2px -2px 0 #000,
-                    -2px  2px 0 #000,
-                     2px  2px 0 #000,
-                     0px  0px 12px rgba(0,0,0,1);
-                border-bottom: 1px solid rgba(255,255,255,0.3);
-                padding-bottom: 5px;
-                display: inline-block;
-            }
-
-    /* 容器布局 */
-    .element-container {
-        display: flex;
-        flex-wrap: wrap;
-        gap: 15px;
-        justify-content: center;
-        padding: 10px;
-    }
-
-    /* 元素项 */
-    .element-item {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        cursor: pointer;
-        transition: transform 0.2s;
-        min-width: 60px;
-    }
-
-    .element-item:hover { transform: scale(1.05); }
-
-    /* 圆圈样式 */
-    .element-circle {
-        width: 50px;
-        height: 50px;
-        border-radius: 50%;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        font-weight: bold;
-        box-shadow: 0 2px 5px rgba(0,0,0,0.2);
-        border: 2px solid rgba(255,255,255,0.5);
-        z-index: 2;
-    }
-
-    /* 各元素底色与文字颜色 */
-    .bg-water   { background-color: #2196F3; color: #ffffff; }
-    .bg-fire    { background-color: #f44336; color: #ffffff; }
-    .bg-thunder { background-color: #9c27b0; color: #ffffff; }
-    .bg-wind    { background-color: #81d4fa; color: #004d40; } /* 浅蓝绿配深色字 */
-    .bg-light   { background-color: #ffeb3b; color: #333333; }
-    .bg-dark    { background-color: #212121; color: #ffffff; }
-    .bg-life    { background-color: #4caf50; color: #ffffff; }
-    .bg-earth   { background-color: #795548; color: #ffffff; }
-    .bg-space   { background-color: #bdc3c7; color: #2c3e50; }
-
-    /* 连接组布局 */
-    .element-group-link {
-        display: flex;
-        align-items: flex-start; /* 确保圆圈对齐，盒子在各自下方 */
-        gap: 0;
-        position: relative;
-    }
-
-    .element-connector {
-        width: 20px;
-        height: 2px;
-        background: #888;
-        margin-top: 25px; /* 位于圆圈中心高度 */
-        z-index: 1;
-    }
-
-    /* 弹出文本框 */
-    .element-info-box {
-        display: none; /* 默认隐藏 */
-        margin-top: 8px;
-        padding: 8px;
-        background: rgba(255, 255, 255, 0.9);
-        border: 1px solid #ccc;
-        border-radius: 4px;
-        font-size: 0.85em;
-        max-width: 120px;
-        text-align: center;
-        box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-        word-break: break-all;
-    }
-
-    /* 按钮样式 */
-    .element-btn {
-        background: #f5f5f5;
-        border: 1px solid #ccc;
-        padding: 4px 10px;
-        cursor: pointer;
-        font-size: 0.8em;
-        border-radius: 3px;
-    }
-    .element-btn:hover { background: #e0e0e0; }
-
-    /* 手机端适配：当盒子打开时，不挤压彼此 */
-    @media (max-width: 600px) {
-        .element-info-box {
-            position: relative;
-            max-width: 100px;
+        .quest-scroll[open] {
+            animation: scrollUnfold 0.4s ease-out;
         }
-    }
+
+        .quest-content {
+            padding: 15px;
+            font-size: 0.82em;
+            line-height: 1.5;
+            color: #3e2723;
+            white-space: pre-wrap;
+        }
+
+        @keyframes scrollUnfold {
+            from { opacity: 0; transform: scaleY(0); transform-origin: top; }
+            to { opacity: 1; transform: scaleY(1); transform-origin: top; }
+        }
 
 /* 翻页导航容器 */
 .nav-footer {
@@ -358,472 +287,215 @@
 
 <div class="container">
     <header>
-        <h1>奥米拉格大陆：冒险者手册</h1>
-        <p style="color: var(--paper-darker); opacity: 0.8;">—— 晨曦帝国本部冒险者协会官方录入指南 ——</p>
+        <h1>奥米拉格大陆：档案录入</h1>
+        <p style="color: var(--paper-darker); opacity: 0.8;">—— 冒险者协会官方指南（第二页） ——</p>
     </header>
 
     <div class="welcome-letter">
-        你好！冒险者，欢迎来到奥米拉格大陆的冒险者协会！这里有来自世界各地的冒险者，也包括像您一样的新晋冒险者。你们的日常将会由执行委托，解决麻烦构成，并且因此去往世界各地，体验不同的风俗人情与各式各样的故事。<br><br>
-        然而在说这些未来的展望之前，还是请您大致理解一下我们的构成，以及填写您的个人信息已方便录入。
+        恭喜您已经读完了奥米拉格大陆的全部信息，接下来便是在冒险者协会录入您的个人信息，参与冒险的时刻！<br>
+        请收下这份协助您的指南，熟读如何参与冒险。
     </div>
-<!-- 1. 国家与地理 -->
-<details class="parchment-section" open>
-    <summary class="section-header">国家与地理</summary>
-    <div class="parchment-body">
-        <div class="text-block">
-            奥米拉格是一个复杂且多变的世界。在长久的历史与演变之中逐渐分化，沉淀成不同的势力。这里仅对<strong>势力规模大，并且人数众多</strong>的势力进行记录，小国，与众不同的地方等，就需要您勇于探索了。
-        </div>
 
-        <h3>晨曦帝国 (Dawn Empire)</h3>
-        <div class="text-block">
-            位于地图最中央的，由人类创办的帝国，首都为<strong>黎明之乡，道恩霍姆</strong>。包容性强，各大种族多多少少都会从中中转或在晨曦帝国的领土内交易，甚至定居。教廷与皇庭互相牵制，在领土内的各地都有设有神庙。<br>
-            领土广度惊人，西方与乌玛帝国接壤的雪山与草原，南方与星耀之森接壤的森林，东侧的海洋与绵长的海岸线，几乎囊括了大多数地理环境。当然，也因为领土过大，本地的人类的外貌会出现不少差异。<br>
-            现在的王庭为<strong>西格利特家族</strong>，教廷信仰启明神恩德，相信神明会在迷途或前途灰暗时给予启明，指引信徒前往最适合的未来。也存在其他信仰，但启明神占据大多数。
-        </div>
-        
-        <h3>乌玛帝国 (Uma Empire)</h3>
-        <div class="text-block">
-            位于晨曦帝国以西，以广袤的草原、雪山与戈壁为主体的军事强国。由兽人主导建立，推崇力量与荣誉，社会结构以部落联盟为基础，以兽人王为最高统治者。<br>
-            乌玛对晨曦帝国持谨慎的竞争态度，边境时有摩擦但鲜有大规模战争。信仰以各大种族的先祖之灵与自然图腾为主，也有部分部落崇拜风暴与战争之神。有着丰富的自然资源。<br>
-            当前的王庭为<strong>狮子兽人</strong>。部分神话与传说生物为原型的兽人会倾向以家族的形式居住于城市中，也有部分会在自己的部落内称王。
-        </div>
-        
-        <h3>星耀之森 (Starry Forest)</h3>
-        <div class="text-block relative-box">
-            位于晨曦帝国以南，被绵密的原始森林覆盖的精灵国度。由精灵主导，社会结构松散，以多个聚居地自治为主，各聚居地由长老或德鲁伊领袖管理。<br>
-            核心聚居地为银月城<strong>卢纳里斯</strong>与金阳城<strong>索拉多恩</strong>，由象征日月的两位精灵女皇管理。坐落于森林深处的湖泊之畔。精灵与自然共生，极少主动扩张领土，但对侵入者态度严厉，也同样的不是那么欢迎其他种族在此定居。产出不少蕴含魔力的特殊资源。<br>
-            信仰以自然与星辰为核心，部分聚居地崇拜月亮或太阳，少数精灵信仰远古的森林之灵。星耀之森与晨曦帝国保持友好通商关系，不喜欢乌玛帝国的兽人，觉得他们有点太野蛮了。<br>
-            地底似乎别有洞天。
-            <span class="shake-text">“他█的，这里的树怎么全在打我！”</span>
-        </div>
-        
-        <h3>大地熔炉 (Earth Forge)</h3>
-        <div class="text-block">
-            位于乌玛帝国西北方，以山脉与地下洞穴为主体的，四通八达的矮人王国。由矮人主导，社会结构以工匠行会与氏族长老共治，国王由各大行会与氏族共同推举。<br>
-            大地熔炉以锻造与采矿技术闻名，与不少势力有长期贸易往来，但对外通商政策保守，甚至有点死脑筋，核心锻造技术不对外传授。<br>
-            信仰以锻造之神、大地之母与火神为主，矮人相信死后灵魂会化作大地熔炉的一部分，为接下来的锻造者们提供助力。
-        </div>
-
-        <h3>天穹龙巢 (Sky Dragon's Nest)</h3>
-        <div class="text-block">
-            在传说中驻扎于云朵之上，只有足够强大的龙或得到指引的生物才能来到此地。由于现在鲜少有人见过天穹龙巢，现在早已化作了传说：一座通体白色的，巨大的城市。<br>
-            ——不过老实说，并不是严格意义上的国家，也没有所谓的王。龙族由于自身的元素和生活习惯，一般形影单只的生活在世界各地，然后仗着自己很强吃饭睡觉抢钱钱。<br>
-            也有不抢钱的，比如说光和水属性龙都比较温和与亲民。
-        </div>
-        
-        <h3>地狱 (Hell)</h3>
-        <div class="text-block">
-            混乱的代名词。硫磺，岩浆，暗红色的天空与永无止境的战争。位于一个特殊的位面，只有在偶尔才会有裂隙打开，从中走出恶魔，魔鬼…或者逃难的魔人。<br>
-            根据魔人的描述，里面有七大层，每层由七大罪中的其中一位控制，而在大罪城之外坐落着七十二魔神柱。<br>
-            不过由于某些原因，除了魔人，有智慧的魔鬼与恶魔受到了限制，无法离开地狱。
-        </div>
-        
-        <h3 class="library-title">大图书馆 (Great Library)</h3>
-        <div class="text-block library-text-effect">
-            只有部分智者宣称前往过此地。<br>
-            一个璀璨的，如同水晶一般的，装载着数不清的粹晶的巨大图书馆，似乎永无尽头。里面装载着奥米拉格大陆的所有知识，也装载着不属于这片大陆的知识。<br>
-            在偶尔会打开一道缝隙，从中投射出无数粹晶，如同灿烂的流星雨坠落于世界各地。
-        </div>
-    </div>
-</details>
-
-    <!-- 2. 冒险者协会 -->
+    <!-- 参与冒险 -->
     <details class="parchment-section" open>
-        <summary class="section-header">冒险者协会</summary>
+        <summary class="section-header">参与冒险</summary>
         <div class="parchment-body">
             <div class="text-block">
-            坐落于晨曦帝国的首都，道恩霍姆。<br>
-            位于城市的正中央。在刻有冒险者协会的大门后是前台与一块偌大告示板，左右两侧四通八达，通往锻造区，居住区等各种建筑。主体由白色的花岗岩砌成，佐以青色框架与金色配饰，拱门前挂有盾与剑的协会标识。<br>
-            因各种种族之间频发的问题与委托而逐渐形成完整的产业链，后逐渐体制化。在其他国家与地区也多多少少建有其他分部。<br>
-            一定程度上也承接着交易中枢的工作，即使没有委托要求，也可以鉴定与在这里买入卖出事物。</div>
-            
-            <h3>职业圣殿</h3>
-            <div class="text-block">各大圣殿坐落于道恩霍姆的四角。负责四大职业的认证，升级，以及相关职业卷轴的购买与打造。</div>
-        </div>
-    </details>
-    <!-- 3. 评级系统 -->
-    <details class="parchment-section" open>
-        <summary class="section-header">评级系统</summary>
-        <div class="parchment-body">
-            <div class="text-block">
-                冒险者协会将魔物，装备，冒险者评级与技能卷轴统一归类为五个大类：<strong>青铜、白银、黄金、白金与黑金</strong>。<br>
-                顺带一提，实际上评级都来自于冒险者协会，所以有的时候也会出现不符合、没有评级等问题。当然，敢于挑战无评级就像开盲盒，风险自负。
+                在完成档案，进入群聊后，您会注意到群的置顶公告上存在一块巨大的告示板。在告示板上张贴着委托的标题，介绍，评级，最大可接人数，以及主持这次委托的主持人。<br>
+                <details class="quest-scroll">
+                    <summary>📜 示例：青铜级委托 (点击展开)</summary>
+                    <div class="quest-content"><strong>青铜-哥布林在这里占山为王了！</strong>
+我们是多恩小村的农民，凑不出来那么多金币很抱歉！但是就在我们村旁边的山上，驻扎了一群哥布林，搞得我们没办法上山采药，还时不时会下来劫掠我们！我们这里已经有几个人死于劫掠了，希望能够有人清除他们！
+<strong>每人15金币 3人</strong></div>
+                </details>
+                在与志同道合的伙伴们商讨过后，您可以在任务群内报备并at主持人。主持人会要求您将您的<strong>冒险档案</strong>复制一份，发送给主持人的小窗。在以上全部完成后，开始本次委托。<br>
+                主持人将会根据您的行动来回应，推进委托，饰演这片世界，并且判定您行动最终的成果。因此，您应当保持活跃，不操控，控制判定，并且做出符合角色的行为。<br>
+                由于群内不包括明确的战斗力、判定与强度表，因此绝大多数的战斗都采取<strong>心判</strong>。其成功率将取决于您的属性，以及技能——在同级的情况下，技能的强度绝对大于其他。<br>
+                在使用特性、属性、技能、装备时，您需要在发言的最后贴上相对应的文本，方便主持人进行及时判定。
             </div>
-            
-            <!-- 统一评级总表 -->
-            <table>
-                <tr><th style="width: 15%">阶级</th><th style="width: 25%">定义</th><th>描述</th></tr>
-                <tr>
-                    <td>青铜</td>
-                    <td>城镇级的协助者</td>
-                    <td>这既是初出茅庐的冒险者，也是乡间铁匠铺里随手能买到的寻常兵器，更是骚扰农田的哥布林。它们都还够不上什么台面，解决的也不过是些琐事。</td>
-                </tr>
-                <tr>
-                    <td>白银</td>
-                    <td>地区级的守卫者</td>
-                    <td>无论是小有名气的冒险者，匠人精心锻打的嵌银兵器，还是盘踞山道、劫掠商队的食人魔，都已到了一方水土里叫得上名号的程度。</td>
-                </tr>
-                <tr>
-                    <td>黄金</td>
-                    <td>国家级的先行者</td>
-                    <td>被领主以礼相待的冒险者、从遗迹深处重见天日的古代兵装、展开双翼便能遮断城头日光的青年龙。您的名字开始出现在领主的座上宾名单中。</td>
-                </tr>
-                <tr>
-                    <td>白金</td>
-                    <td>史诗级的博弈者</td>
-                    <td>穿戴一身传奇的冒险者、吞噬山脉的远古巨龙、手握命匣的巫妖王——这些存在每一次现身，都可能重绘地图上的国境线。</td>
-                </tr>
-                <tr>
-                    <td>黑金</td>
-                    <td>流颂的传说</td>
-                    <td>这是冒险者的顶点，也是兵器的归鞘、魔物的沉寂。到了这个份上，无论曾经是什么，都已是英雄归乡、镇守一方的时候了。</td>
-                </tr>
+
+            <div class="example-container">
+                <div class="chat-row chat-left">
+                    <div class="bubble bubble-player">
+                        <strong>A：</strong>我警惕的低下身去，借助我轻盈的特性，悄悄地走进这个山洞内部，尝试不惊扰任何山洞内的生物。
+                        <div class="trait-box">
+                            轻盈- 你的步伐如同在林间穿梭的风。你几乎不会从高处坠落而摔伤，走在冰面、树枝等不稳定表面时也能如履平地，并且你的行动总是悄无声息。敏捷+
+                        </div>
+                    </div>
+                </div>
+
+                <div class="chat-row chat-right">
+                    <div class="bubble bubble-host">
+                        <strong>主持人：</strong>好的。那么你的特性成功发挥了作用，你没有造成任何声音就摸进了这个山洞。山洞显得低压压的，每隔数十米就有一盏昏黄的油灯提供可怜的照明。你走到尽头，发现里面居住着一群地精，正在享用抢劫来的食物。
+                    </div>
+                </div>
+            </div>
+
+            <!-- 新增技能规则部分 -->
+            <div class="text-block">
+                在使用技能时，您可以发觉，它存在<strong>技能描述</strong>与<strong>冷却</strong>。<br>
+                在冒险中，如果您想使用技能，那么您必须在行动中体现出相对应的行动，以及描述使用技能的方式。通过合理的描述，您可以自由定义您的攻击方式。<strong>冷却</strong>为技能结束后从下回合开始计算，即两次技能期间必须经过 X 回合，才能重新使用。<br>
+                <strong>自定义攻击方式举例：</strong>使用重击/斩击时，申请以横斩/竖劈打出此次技能；使用元素打击在无法通过的悬崖创造一个凹槽；在使用突刺时不挥出一斩。
+            </div>
+
+            <div class="example-container">
+                <div class="chat-row chat-left">
+                    <div class="bubble bubble-player">
+                        <strong>A：</strong>好的，现在我要使用我的冰属性凝结一枚冰刺，朝着这群地精里块头最大的那个打去。
+                        <div class="trait-box">
+                            元素打击-运用你的属性进行一次在30m内的小范围法术打击。在使用后进入1回合冷却。
+                        </div>
+                    </div>
+                </div>
+
+                <div class="chat-row chat-right">
+                    <div class="bubble bubble-host">
+                        <strong>主持人：</strong>没问题。粹晶催化的冰刺结实的有点超乎你的想象，加上那最大的地精没有意识到有人在暗处，你一发投射过去，他被你的冰刺贯穿了脑袋！
+                    </div>
+                </div>
+            </div>
+
+            <div class="text-block">
+                您的目标是完成委托的要求，并且通过任意途径将消息告知冒险者协会。在确认完成之后，您将收获功绩、金币、素材/粹晶/装备的奖励。
+            </div>
+        </div>
+      
+    </details>
+
+    <!-- 奖励 -->
+    <details class="parchment-section" open>
+        <summary class="section-header">奖励</summary>
+        <div class="parchment-body">
+            <div class="text-block">
+                在完成一次委托后，您会获得功绩、金币、素材/粹晶/装备的奖励。<br>
+                一次普通的，大致奥米拉格内1~3日的任务将会为您提供10~15功绩。<br>
+                根据您的评级与任务的危险性，金币的奖赏也会产生改变。
+            </div>
+
+            <table class="trait-table">
+                <thead>
+                    <tr>
+                        <th>冒险者评级</th>
+                        <th>金币奖赏范围</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr><td>青铜</td><td>10~20 金币</td></tr>
+                    <tr><td>白银</td><td>30~200 金币</td></tr>
+                    <tr><td>黄金</td><td>500~1500 金币</td></tr>
+                    <tr><td>白金</td><td>1500~上万金币</td></tr>
+                </tbody>
             </table>
 
-            <!-- 冒险者评级正文 -->
-            <h3>冒险者评级</h3>
             <div class="text-block">
-                从处理邻里琐事的见习生到足以对抗位面危机的传奇，协会根据任务性质与危险程度设立了五大阶级。随着等级的提升，你所解决的麻烦将从邻里问题逐渐成长到解决地域灾难等重大委托。<br>
-                拥有一个阶级的评级，相当于认可您未来会面对的魔物、使用的装备都是相同级别。<br>
-                多数冒险者聚集于青铜至白银之间，黄金已经足够能成为一个冒险者协会分部的部长。而目前四大职业圣殿的殿主都为白金，本部协会的会长为黑金。
+                多数时间，您所在的小队会获得2~5个素材/粹晶/装备，并且通常时间不超过您的评级。由于成果为全队共享，因此如果有多个人选择同一个素材时，则会进行<strong>拼点</strong>，出点最高的冒险者拿走此素材。<br>
+                您可以将这些售出给其他人，也可以售卖给冒险者协会。<br>
+                在拥有素材时，你可以提交不高于2的素材，寻找会锻造的人进行一次打造，来获得你想要的装备或效果。
             </div>
-
-            <!-- 技能/粹晶正文 -->
-            <h3>技能/粹晶</h3>
-            <div class="text-block">
-                由于大图书馆的存在，这个世界存在一种名为<strong>粹晶</strong>的奇特物质。一枚粹晶通常呈现5-10cm左右，由于自身的属性呈现不同的颜色，并且会根据其内部的危险性与强度做出青铜至黑金的评级。<br>
-                粹晶内部包括了一段特定的，对于魔法/战斗的技巧，俗称技能。在手握粹晶时可以对内部的技巧进行观摩和理解，一旦选择学习，在完成之后，粹晶会化作灰尘消散，无法再次出售或使用。<br>
-                部分粹晶有先决条件的要求，举例为必须重武器，必须掌握法术能力，或具备特定类型的特性。粹晶可以被人为制造，由职业圣殿掌握技术。在需要定制/购买符合心意的粹晶时，需要额外花费钱币才可获得。<br>
-                有多数人都喜欢收集这些，一方面是好看，另一方面是本身其特殊性就可以作为交易物品之一进行流通，且价格无论在何处都变动不大。因此，也可以在一些非知性生物的巢穴中找到粹晶。<br>
-            </div>
-
-            <!-- 装备正文 -->
-            <h3>装备</h3>
-            <div class="text-block">
-                顾名思义，可以配备的，用于直接或间接辅助人们的道具。装备也同样包括武器，饰品，并且稀有程度与强度随着评级上涨。<br>
-                其来源各式各样，从精灵的缝制至矮人的锻造都有可能，而到达一定境界的武器将会镶嵌粹晶供使用者灵活运用。<br>
-                当前的装备有：<strong>武器、躯干、饰品、道具</strong>五大类。由于武器被统一归类，所以双刀、剑盾等双持武器会共享同一个粹晶技能池。<br>
-                与此同时，也可以收集素材，付费给常驻于冒险者协会的矮人或者具有锻造能力的朋友进行锻造。然而白金及之后的锻造家就只能请了，他们总是阴晴不定。
-            </div>
-            <table>
-                <tr><th style="width: 15%">阶级</th><th style="width: 25%">配置</th><th>描述</th></tr>
-                <tr>
-                    <td>青铜</td>
-                    <td>无被动 / 无技能</td>
-                    <td>最普通的兵器/装备。</td>
-                </tr>
-                <tr>
-                    <td>白银</td>
-                    <td>1 被动 / 无技能</td>
-                    <td>涉猎于锻造中有一段时日的创作。</td>
-                </tr>
-                <tr>
-                    <td>黄金</td>
-                    <td>1 被动 / 1 技能</td>
-                    <td>普通工匠的巅峰，或者使用了珍惜素材。</td>
-                </tr>
-                <tr>
-                    <td>白金</td>
-                    <td>2 被动 / 1 技能</td>
-                    <td>一件凡人无法接触甚至企及的奇迹。</td>
-                </tr>
-                <tr>
-                    <td>黑金</td>
-                    <td>2 被动 / 2 技能</td>
-                    <td>属于是某个势力的终极武器。</td>
-                </tr>
-            </table>
         </div>
     </details>
 
-<!-- 4. 元素 -->
-<details class="parchment-section" open>
-    <summary class="section-header">元素定义</summary>
-    <div class="parchment-body">
-        <div class="text-block">
-            世间存在诸多不同元素，根据其特性分成了简单的大类。人们更倾向于以更细分的元素去命名武器或者生物，例如“带毒的狼”或“水晶螃蟹”。
-        </div>
-
-        <!-- 元素控制按钮 -->
-        <div style="margin-bottom: 15px; text-align: right;">
-            <button onclick="toggleAllElements(true)" class="element-btn">全部展开</button>
-            <button onclick="toggleAllElements(false)" class="element-btn">全部收纳</button>
-        </div>
-
-        <div class="element-container">
-            <!-- 水与火 (连接组) -->
-            <div class="element-group-link">
-                <div class="element-item" onclick="toggleElement('el-water')">
-                    <div class="element-circle bg-water">水</div>
-                    <div id="el-water" class="element-info-box">包括：毒、冰。</div>
-                </div>
-                <div class="element-connector"></div>
-                <div class="element-item" onclick="toggleElement('el-fire')">
-                    <div class="element-circle bg-fire">火</div>
-                    <div id="el-fire" class="element-info-box">包括：岩浆与高温。</div>
-                </div>
-            </div>
-
-            <!-- 雷、风、生命、大地、空间 (独立组) -->
-            <div class="element-item" onclick="toggleElement('el-thunder')">
-                <div class="element-circle bg-thunder">雷</div>
-                <div id="el-thunder" class="element-info-box">包括：电流与声波。</div>
-            </div>
-
-            <div class="element-item" onclick="toggleElement('el-wind')">
-                <div class="element-circle bg-wind">风</div>
-                <div id="el-wind" class="element-info-box">包括：疾风、气压。</div>
-            </div>
-
-            <!-- 光与暗 (连接组) -->
-            <div class="element-group-link">
-                <div class="element-item" onclick="toggleElement('el-light')">
-                    <div class="element-circle bg-light">光</div>
-                    <div id="el-light" class="element-info-box">包括：净化、实体光、驱散。</div>
-                </div>
-                <div class="element-connector"></div>
-                <div class="element-item" onclick="toggleElement('el-dark')">
-                    <div class="element-circle bg-dark">暗</div>
-                    <div id="el-dark" class="element-info-box">包括：侵蚀、影子。</div>
-                </div>
-            </div>
-
-            <div class="element-item" onclick="toggleElement('el-life')">
-                <div class="element-circle bg-life">生命</div>
-                <div id="el-life" class="element-info-box">包括：树木、生机与死亡。</div>
-            </div>
-
-            <div class="element-item" onclick="toggleElement('el-earth')">
-                <div class="element-circle bg-earth">大地</div>
-                <div id="el-earth" class="element-info-box">包括：金、土、晶石。</div>
-            </div>
-
-            <div class="element-item" onclick="toggleElement('el-space')">
-                <div class="element-circle bg-space">空间</div>
-                <div id="el-space" class="element-info-box">包括：位面、次元与连接。</div>
-            </div>
-        </div>
-    </div>
-</details>
-
-    <!-- 5. 属性 -->
+    <!-- 升级 -->
     <details class="parchment-section" open>
-        <summary class="section-header">属性定义</summary>
+        <summary class="section-header">升级</summary>
         <div class="parchment-body">
-            <div class="text-block">属性分为力量、敏捷、智力和意志四大类，分别象征着战士，游侠，术法与守护者四大职业。
-在同级之间，会对属性进行评级，其加值与减值象征着与同等级的，最普通的冒险者属性所对比出来的差异。
-在分配属性时，初始拥有三点，且不可超过++。
-获得+++的唯一办法是通过特性获取最后1+。</div>
+            <div class="text-block">
+                在收集足够的功绩之后，便可以对冒险者协会申请认证。在明确您具备足够的能力后，便会获得晋级。作为认证奖励，您可以从冒险者协会侧获取一个相同评级的，免费的装备或粹晶。
+            </div>
 
-            <table>
-                <tr><th style="width: 22%">属性等级</th><th style="width: 15%">评价</th><th>描述</th></tr>
-                <tr><td>属性--</td><td>失能</td><td>可能是坐轮椅，重病无力，极度胆小或智力问题。</td></tr>
-                <tr><td>属性-</td><td>弱势</td><td>在这一方面有部分的弱势，类似于脑子笨或者走路容易摔跤。</td></tr>
-                <tr><td>属性</td><td>普通人</td><td>各种方面的中庸平均值，没有特殊的短板。</td></tr>
-                <tr><td>属性+</td><td>优秀者</td><td>因为种族优势或背景原因擅长于此。</td></tr>
-                <tr><td>属性++</td><td>优越者</td><td>在这个方面有相当程度的天赋，已经佼佼者。</td></tr>
-                <tr><td>属性+++</td><td>天选者</td><td>种族与自身天赋共同凝结而成的结晶，寥寥可数。</td></tr>
+            <table class="trait-table">
+                <thead>
+                    <tr>
+                        <th>目标等级</th>
+                        <th>所需功绩</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr><td>青铜 → 白银</td><td>100 功绩</td></tr>
+                    <tr><td>白银 → 黄金</td><td>200 功绩</td></tr>
+                    <tr><td>黄金 → 白金</td><td>300 功绩</td></tr>
+                    <tr><td>白金 → 黑金</td><td>300 功绩</td></tr>
+                </tbody>
             </table>
 
-            <div class="text-block">因此，一位主力量，选择了龙鳞特质的龙族的属性应当为：力量+++、敏捷+、智力、意志。</div>
-        </div>
-    </details>
-
-    <!-- 6. 职业 -->
-    <details class="parchment-section" open>
-        <summary class="section-header">职业划分</summary>
-        <div class="parchment-body">
-            <div class="text-block">职业根据不同方向与作战风格所划分，任何冒险者都将归类于其中之一，并且前往各自的圣殿进行报道。</div>
-            
-            <div class="tab-container">
-                <div class="tab-btn active" onclick="showTab('class', 'warrior', this)">战士</div>
-                <div class="tab-btn" onclick="showTab('class', 'ranger', this)">游侠</div>
-                <div class="tab-btn" onclick="showTab('class', 'mage', this)">术法</div>
-                <div class="tab-btn" onclick="showTab('class', 'guardian', this)">守护者</div>
-            </div>
-
-            <div class="content-box">
-                <div id="warrior" class="pane class-pane active">
-                    <strong>战士</strong><br>
-                    冲锋者，前排，以力破万法。主属性为力量。<br>
-                    使用近距离的攻击方式进行作战都可以归为这一大类，也有人会以法术来辅助自身进行进攻。但无论如何，无论是格斗家，还是使用镰刀，双剑，流星锤，都会被归类为战士。主要的攻击手段都来自于物理打击。<br>
-                    在冒险者的团队中，战士与部分守护者经常作为基石与必要的前排存在。因为其低门槛性，所以也是最常遇到的职业。<br>
-                    作为战士时，自身的冒险者徽章为红底。
-                </div>
-                <div id="ranger" class="pane class-pane">
-                    <strong>游侠</strong><br>
-                    远行者，机动，以敏察乾坤。主属性为敏捷。<br>
-                    涵盖所有倾向于迅捷的分类。利用远程器械、投掷物或单纯采取高速机动。不仅仅是弓箭手，也包括刺客，铳师与部分使用居合术的东方来客。他们的攻击手段虽然多样，但核心逻辑在于“拉开距离”或“利用环境”。<br>
-                    在团队中，游侠是可靠的火力点与侦察兵，他们擅长在战斗开始前发现威胁，并从死角给予致命一击。有些游侠生来便与自然为伴，他们往往也是团队中最了解地理与生物习性的成员。<br>
-                    作为游侠时，自身的冒险者徽章为绿底。
-                </div>
-                <div id="mage" class="pane class-pane">
-                    <strong>术法</strong><br>
-                    编织者，后排，以智御万象。主属性为智力。<br>
-                    涵盖使用魔法的任何分类，包括部分近战但使用魔法为主要攻击手段的分支。多多少少都具有直接或间接操控魔法的能力，从元素至光暗，从幻觉至诅咒都属于该范围内。主要的攻击手段都来自于法术能量。<br>
-                    与此同时，他们多多少少也会为日常的生活创造一些便利，比如说听别人说话就能转化为文字的羽毛笔，亦或者是自己会清扫房间的扫帚。<br>
-                    作为术法者时，自身的冒险者徽章为蓝底。
-                </div>
-                <div id="guardian" class="pane class-pane">
-                    <strong>守护者</strong><br>
-                    坚盾者，中前排，以意志佑众生。主属性为意志。<br>
-                    涵盖所有以保护、治愈和辅助为核心作战风格的职业。这包括拥有神圣信仰的圣骑士与牧师，也包括不信奉神明、但能引导太阳或月光能量进行治愈的自然使者，甚至是纯粹依靠重盾与意志力为同伴抵挡伤害的防御者。他们的主要手段是维持团队的生命体征，并为队友提供各类增益。<br>
-                    作为守护者时，自身的冒险者徽章为黄底。
-                </div>
+            <div class="text-block">
+                在升级时，您技能的强度与您属性的强度都会产生一次大幅度的提升。
             </div>
         </div>
     </details>
 
-    <!-- 6. 种族与特性 -->
+    <!-- 贸易 -->
     <details class="parchment-section" open>
-        <summary class="section-header">种族与特性</summary>
+        <summary class="section-header">贸易</summary>
         <div class="parchment-body">
-            <div class="text-block">在奥米拉格大陆上生活着各种不同的种族。
-简单来说，特性便是“你生来擅长什么”，仅代表你有这种类型的能力，实际的能力取决于当前的等级。
-你在日常与任务中都可以宣言使用特性中独特的能力，但效果肯定没有技能优秀。且与此同时，特性决定了你技能树的走向，部分卷轴可能会要求特定的特性才可以学习。
-
-至多选择两条特性。
-在选择特性时，你可以将加值加入你的属性中。若选择的两条特性都含有加值，则选择其一。</div>
-
-            <div class="tab-container">
-                <div class="tab-btn active" onclick="showTab('race', 'common', this)">通用特性</div>
-                <div class="tab-btn" onclick="showTab('race', 'human', this)">人类</div>
-                <div class="tab-btn" onclick="showTab('race', 'dragon', this)">龙裔</div>
-                <div class="tab-btn" onclick="showTab('race', 'elf', this)">精灵</div>
-                <div class="tab-btn" onclick="showTab('race', 'dwarf', this)">矮人</div>
-                <div class="tab-btn" onclick="showTab('race', 'element', this)">元素役</div>
-                <div class="tab-btn" onclick="showTab('race', 'orc', this)">兽人</div>
-                <div class="tab-btn" onclick="showTab('race', 'demon', this)">魔人</div>
+            <div class="text-block">
+                在奥米拉格大陆，货币的兑换为：
             </div>
 
-            <div class="content-box">
-                <!-- 通用特性 -->
-                <div id="common" class="pane race-pane active">
-                    <table class="trait-table">
-                        <tr><th>特性名</th><th>特性介绍</th><th>增幅属性</th></tr>
-                        <tr><td>家缠万贯</td><td>你字面意义上的很有钱。你的起始资金远超常人，在购买装备、情报或雇佣人手时，总能拿出别人拿不出的价码。除此之外，在日常，你也可以展示一下你的壕无人性。</td><td>—</td></tr>
-                        <tr><td>人脉</td><td>简单来说，你在某些领域有自己的人脉，或者你本身就来自于一个特定的家族。你可以写一个不超过黄金的NPC作为你的人脉。</td><td>—</td></tr>
-                        <tr><td>不屈意志</td><td>你的精神如同顽石。在面对精神控制、恐惧或绝望时，你总能凭借意志力多坚持一会儿，甚至反败为胜。</td><td>意志</td></tr>
-                        <tr><td>信徒</td><td>你信仰某个特定的神明，而神明仁慈的给予了你祂领域内的权能。取决于所信仰的神明，你将获得相对应的法术能力。</td><td>意志</td></tr>
-                    </table>
-                </div>
+            <div class="currency-exchange">
+                <span style="color: var(--coin-copper);">100 铜币</span> : 
+                <span style="color: var(--coin-silver);">10 银币</span> : 
+                <span style="color: var(--coin-gold);">1 金币</span>
+            </div>
 
-                <!-- 人类 -->
-                <div id="human" class="pane race-pane">
-                    <div class="text-block">在奥米拉格大陆占据最大数量的种族，也是分布最多的种族。体型，五官与外貌都各有千秋，在各大领域都有建树，包括但不限于和矮人在锻造上干架，和精灵拼元素控制…总之，若是说万能，那非人类莫属了。</div>
-                    <table class="trait-table">
-                        <tr><th>特性名</th><th>特性介绍</th><th>增幅属性</th></tr>
-                        <tr><td>猎人</td><td>你的家族生前就擅长对付某个特定的种族。血族猎人，猎龙者都来自于这一脉。你可以写关于具有特殊或专攻类型的技能。</td><td>—</td></tr>
-                        <tr><td>多才多艺</td><td>你在某个天赋上比其他人类更为优秀。你可以从其他种族的非身体类特性中选择一个作为你的特性，并且替代本条特性。</td><td>—</td></tr>
-                        <tr><td>术法者</td><td>你与魔法有隐秘的连接，其可选择的法术类型多种多样。</td><td>智力</td></tr>
-                    </table>
-                </div>
+            <div class="text-block">
+                在冒险者协会的侧厅，常年驻扎着鉴定师、锻造师与粹晶工匠。你可以在此处将冒险中获得的素材、装备或粹晶出售给协会，也可以用金币购买所需的物资。<br>
+            </div>
 
-                <!-- 龙裔 -->
-                <div id="dragon" class="pane race-pane">
-                    <div class="text-block">因各种原因（包括但不限于乱性、诅咒、契约）而获得一部分龙族血脉的孩子。多以人类混血为主，有的时候也会出现兽人或魔人与地狱龙族的混血。其特征为竖瞳，龙角龙尾，有部分生有翅膀，也有脑袋完全龙化的龙裔存在。龙的种族多种多样，以元素作为主要区分，其次是生活习惯。</div>
-                    <table class="trait-table">
-                        <tr><th>特性名</th><th>特性介绍</th><th>增幅属性</th></tr>
-                        <tr><td>龙鳞</td><td>你的血脉中掺杂着比其他龙裔更为坚硬的鳞片。这使得你在缺乏护甲的情况下也可以拥有一定程度的防御。</td><td>力量</td></tr>
-                        <tr><td>吐息</td><td>你口中流淌着先祖的力量，能口吐龙息，其吐息可以从黑雾，火焰等诸多中择一。虽然初始威力有限，但随着成长，这会是你使用法术能力的主要途径之一。</td><td>—</td></tr>
-                        <tr><td>龙翼</td><td>你的后背有一对货真价实的龙翼。这让你获得了飞行的能力——虽然一开始可能飞得不太优雅。</td><td>—</td></tr>
-                        <tr><td>远古记忆</td><td>你的先祖似乎与魔法有关，你可以选择与魔法相关的技能与能力，但仅基于你所遗传的属性。</td><td>智力</td></tr>
-                    </table>
-                </div>
+<table class="trait-table"> <thead> <tr> <th>评级</th> <th>素材买入</th> <th>粹晶买入</th> <th>装备买入</th> <th>锻造费用</th> </tr> </thead> <tbody> <tr> <td>青铜</td> <td>6 金币</td> <td>30 金币</td> <td>45 金币</td> <td>35 金币</td> </tr> <tr> <td>白银</td> <td>60 金币</td> <td>200 金币</td> <td>300 金币</td> <td>200 金币</td> </tr> <tr> <td>黄金</td> <td>500 金币</td> <td>1200 金币</td> <td>1800 金币</td> <td>1500 金币</td> </tr> <tr> <td>白金</td> <td>2500 金币</td> <td>5000 金币</td> <td>7500 金币</td> <td>6000 金币</td> </tr> <tr> <td>黑金</td> <td>10000 金币</td> <td>20000 金币</td> <td>30000 金币</td> <td>25000 金币</td> </tr> </tbody> </table>
 
-                <!-- 精灵 -->
-                <div id="elf" class="pane race-pane">
-                    <div class="text-block">与大自然为伴的，寿命悠久的种族，与什么类型的大自然为伴另说。多数人认为精灵高贵，优雅，不过说实话，偏见总是害人的。特征为尖耳。</div>
-                    <table class="trait-table">
-                        <tr><th>特性名</th><th>特性介绍</th><th>增幅属性</th></tr>
-                        <tr><td>自然为伴</td><td>树木、藤蔓与林间的野兽会回应你的呼唤。你能模糊地感知自然的情绪，并让植物为你提供微小的帮助。这个效果在您没有法术能力时仍然有效，与此同时赋予您使用生命与自然魔法的能力。</td><td>智力</td></tr>
-                        <tr><td>月光/太阳亲和</td><td>你与天体的联系极为紧密。在白天的阳光下或夜晚的月光中，你的精力恢复得更快，并能以此为基础，施展与光、影或净化相关的能力。在选择词条特性时，从日月之间选择其一。</td><td>智力</td></tr>
-                        <tr><td>轻盈</td><td>你的步伐如同在林间穿梭的风。你几乎不会从高处坠落而摔伤，走在冰面、树枝等不稳定表面时也能如履平地，并且你的行动总是悄无声息。</td><td>敏捷</td></tr>
-                    </table>
-                </div>
+            <div class="text-block">
+                <strong>回收政策：</strong><br>
+                若你希望将物品进行出售，无论买家是协会还是冒险者，都统一要求以买入价的<strong>六成</strong>进行回收，但冒险者协会会额外收取成交价<strong>5%</strong>的手续费。例如，一件青铜装备的买入价为23金币，协会回收价约为13.8金币，扣除手续费后实际到手约为13.1金币。<br>
+                与此同时，除非关系亲密，低价的，甚至免费的交易是不被允许的。<br>
+                <strong>定制服务：</strong><br>
+                若你需要定制符合自身需求的粹晶，则在对应评级买入价的基础上，额外增加<strong>30%</strong>的定制费用。定制粹晶通常需要等待三至七日不等，具体时长由工匠的排期与素材的稀有程度决定。
+            </div>
+        </div>
+    </details>
 
-                <!-- 矮人 -->
-                <div id="dwarf" class="pane race-pane">
-                    <div class="text-block">主要栖居于山脉与地下城邦，以精湛的锻造工艺和顽固的性情闻名，也因此，不少矮人都很喜欢在山脉里开辟自己的住所。特征为浓密的毛发，大致1.2~1.5m的身高，以及…啤酒！</div>
-                    <table class="trait-table">
-                        <tr><th>特性名</th><th>特性介绍</th><th>增幅属性</th></tr>
-                        <tr><td>锻造者</td><td>你的灵魂里回荡着铁砧与锻锤的声音。你在锻造与打造装备上有自己独特的见解，在达到一定程度后，你可以为别人锻造。在锻造比自身等级更低的装备时必定成功，在锻造同等级时具有50%基础成功率。</td><td>—</td></tr>
-                        <tr><td>巧手</td><td>你同样擅长修补和简单的护理，尤其是在战地条件情况下。你获得一个随身工具包，可以进行成功率鉴定来帮别人修补破损的装备或武器。</td><td>—</td></tr>
-                        <tr><td>坚韧体魄</td><td>你的身体如同山岩般坚韧，拥有更强的抗击打能力和对毒素、疾病的抵抗：俗称耐打。</td><td>力量</td></tr>
-                    </table>
-                </div>
+    <!-- 玩家档案 -->
+    <details class="parchment-section" open>
+        <summary class="section-header">玩家档案</summary>
+        <div class="parchment-body">
+            <div class="text-block">
+                您将作为一位青铜级别的冒险者加入，并获得青铜级别武器×1，护甲x1。您可以自由定义其外观，种类和风格，前提是不超出该级别。<br>
+                与此同时，您携带10枚金币，拥有家缠万贯时，修正为25枚金币。<br>
+                除此之外，您的背景应当是一位初出茅庐的青年，或者从未涉猎过的成年人，由于各种原因选择来到晨曦帝国的首都，决定成为一位冒险者。由于旧伤降级，曾经是高评级冒险者的设定是不被允许的，我们更希望看到相同起跑线的冒险者。<br>
+                与此同时，作为冒险者，您可以无限制的吸收和学习低于等于您评级的粹晶中的技能。然值得注意的是，在一场任务中，您至多只能携带其中几个技能。<br>
+                能够携带的技能数为2+你所处的段位的阶数，例如白银能够携带4个技能。
+            </div>
 
-                <!-- 元素役 -->
-                <div id="element" class="pane race-pane">
-                    <div class="text-block">因各种原因（包括但不限于乱性、诅咒、契约）而获得一部分元素血脉的孩子。并不是完全的元素灵，仍然拥有肉体凡胎。与此同时，他们可能拥有其他种族的外貌，但是其特性与能力已经完全被元素所替代。与此同时，他们身上也会出现元素的特征，比如说如同水一般流淌，或火一般燃烧的发尾。</div>
-                    <table class="trait-table">
-                        <tr><th>特性名</th><th>特性介绍</th><th>增幅属性</th></tr>
-                        <tr><td>元素化身（固定）</td><td>你的本质的一部分被元素替代，你能够选择了火、水、土、风等一种元素作为你的本源。</td><td>智力</td></tr>
-                        <tr><td>契约者</td><td>你可以将自己的能力共享给一位契约者，但你的契约者必须等于或低于你目前的等级。</td><td>—</td></tr>
-                        <tr><td>元素之躯</td><td>你能够将自己的身体的一部分转化为你的元素，但与此同时，如果元素受损，你的身体也会受损。</td><td>—</td></tr>
-                    </table>
-                </div>
+            <h3>人设档案</h3>
+            <div class="text-block">
+                <strong>姓名：</strong>(西方名，需要包括翻译，可以使用代号。）<br>
+                <strong>性别：</strong><br>
+                <strong>年龄：</strong>（按照人类进行填写，内测暂且不对各大种族年龄进行调整。）<br>
+                <strong>种族：</strong>（参考种族栏）<br>
+                <strong>性格：</strong><br>
+                <strong>外貌：</strong>（可以使用图片）<br>
+                <strong>背景：</strong><br>
+                <strong>备注：</strong>
+            </div>
 
-                <!-- 兽人 -->
-                <div id="orc" class="pane race-pane">
-                    <div class="text-block">与人类一样，都是分布相对广泛的种族，多以部落的形式居住，也有一些兽人创造了自己的国度与城市。拥有兽耳兽尾，根据其种族也会有拥有羽翼或角，也有完全覆盖皮毛或者脑袋为兽形的个体。多数兽人并不认为自己与自己的原型生物是同一个种族，但是如果在他们面前吃相对应的生物还是会被视作挑衅。</div>
-                    <table class="trait-table">
-                        <tr><th>特性名</th><th>特性介绍</th><th>增幅属性</th></tr>
-                        <tr><td>野兽感官</td><td>你的感官比其他种族更为敏锐，也同时包括直觉与第六感等综合素质。</td><td>敏捷</td></tr>
-                        <tr><td>兽化</td><td>你拥有和其他兽人相比更为灵活的身体。你可以选择部分身体部位进行兽化，在愈发熟练之后也许可以完全化作野兽。</td><td>力量</td></tr>
-                        <tr><td>传说生物</td><td>在使用传说物种作为种族倾向时，并且根据相对应的传说获得相对应的元素法术能力。</td><td>智力</td></tr>
-                        <tr><td>超速</td><td>在使用有翅生物作为种族倾向时才可选择。获得在天空中翱翔的能力，也相对应的可以利用翅膀进行侦查，急转，调换位置。</td><td>敏捷</td></tr>
-                    </table>
-                </div>
-
-                <!-- 魔人 -->
-                <div id="demon" class="pane race-pane">
-                    <div class="text-block">来自地狱的种族，也有一些从地狱离开，在奥米拉格里与其他种族一起生活。然而身上的硫磺味总是无法摆脱，也偶尔会遭受非议。特征为角与尾巴，但多数时间为暗色，尾巴也比龙裔更为细长。</div>
-                    <table class="trait-table">
-                        <tr><th>特性名</th><th>特性介绍</th><th>增幅属性</th></tr>
-                        <tr><td>魔纹</td><td>你无法直接驱使魔法，但是你能够通过身体上的纹路来驱使魔法。在使用时，你身上的纹路将会亮起。在使用卷轴时，卷轴里的技能将会受到一定程度的异化。</td><td>智力</td></tr>
-                        <tr><td>炼狱体质</td><td>你的身躯经过地狱的锻炼。其耐受力，持续力更为优秀。</td><td>力量</td></tr>
-                        <tr><td>魅惑者</td><td>你具有一定程度的恶魔血统，因此也能够使用魅惑类的魔法。在日常中你也可以使用魅惑法术，但是如果被发现的话可能会招来恶感。</td><td>—</td></tr>
-                    </table>
-                </div>
+            <h3>冒险档案</h3>
+            <div class="text-block">
+                <strong>职业：</strong>（四大职业之一）<br>
+                <strong>阶级：</strong>青铜<br>
+                <strong>属性：</strong>力量、敏捷、智力、意志。<br>
+                <strong>特性：</strong>（从所选种族的特性表内选择其二，并且申明使用了哪个加值。）<br>
+                <strong>武器：</strong>（自拟x1）<br>
+                <strong>装备：</strong>（自拟x1）<br>
+                <strong>道具：</strong>无<br>
+                <strong>技能：</strong>无
             </div>
         </div>
     </details>
 
 <div class="nav-footer">
-    <a href="rule.html" class="nav-link nav-next">点击这里前往下一页（规则录入） →</a>
+    <a href="index.html" class="nav-link nav-prev">← 点击这里前往上一页（世界观指南）</a>
 </div>
 </div>
-
-<script>
-    function showTab(type, id, btn) {
-        const panes = document.querySelectorAll('.' + type + '-pane');
-        panes.forEach(p => p.classList.remove('active'));
-        document.getElementById(id).classList.add('active');
-        
-        const btns = btn.parentElement.querySelectorAll('.tab-btn');
-        btns.forEach(b => b.classList.remove('active'));
-        btn.classList.add('active');
-    }
-
-    // 切换单个显示
-    function toggleElement(id) {
-        const target = document.getElementById(id);
-        if (target.style.display === "block") {
-            target.style.display = "none";
-        } else {
-            target.style.display = "block";
-        }
-    }
-
-    // 全部打开或收纳
-    function toggleAllElements(show) {
-        const boxes = document.querySelectorAll('.element-info-box');
-        boxes.forEach(box => {
-            box.style.display = show ? "block" : "none";
-        });
-    }
-</script>
 
 </body>
 </html>
