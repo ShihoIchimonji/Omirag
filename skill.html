@@ -11,12 +11,10 @@
             --border-brown: #5d3a1a;
             --accent-gold: #d4af37;
             --text-main: #2b1d0e;
-            /* 职业颜色 */
             --warrior-red: #8b0000;
             --ranger-green: #2e7d32;
             --mage-blue: #1565c0;
             --guardian-yellow: #b8860b;
-            /* 元素颜色 */
             --el-water: #2196F3; --el-fire: #f44336; --el-thunder: #9c27b0;
             --el-wind: #4dd0e1; --el-light: #fbc02d; --el-dark: #37474f;
             --el-life: #4caf50; --el-earth: #795548; --el-space: #9e9e9e;
@@ -43,7 +41,6 @@
             text-shadow: 0 0 15px rgba(212, 175, 55, 0.5), 2px 2px 5px rgba(0,0,0,0.8);
         }
 
-        /* 筛选面板 */
         .filter-panel {
             background: var(--paper-darker);
             background-image: url('https://www.transparenttextures.com/patterns/paper-fibers.png');
@@ -62,20 +59,8 @@
         }
 
         .filter-row:last-child { border-bottom: none; }
-
-        .filter-label {
-            font-weight: bold;
-            width: 100px;
-            color: #4e342e;
-            flex-shrink: 0;
-            padding-top: 4px;
-        }
-
-        .filter-options {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 6px;
-        }
+        .filter-label { font-weight: bold; width: 100px; color: #4e342e; flex-shrink: 0; padding-top: 4px; }
+        .filter-options { display: flex; flex-wrap: wrap; gap: 6px; }
 
         .filter-btn {
             padding: 4px 10px;
@@ -95,7 +80,6 @@
             border-color: var(--accent-gold);
         }
 
-        /* 技能展示区 */
         .skill-grid {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(480px, 1fr));
@@ -137,7 +121,6 @@
         .grade-platinum { background: #e5e4e2; color: #4e342e; border: 1px solid #999; }
         .grade-blackgold { background: #1a1a1a; color: var(--accent-gold); border: 1px solid var(--accent-gold); }
 
-        /* 要求区域 */
         .req-grid {
             display: grid;
             grid-template-columns: 1fr 1fr;
@@ -145,11 +128,7 @@
             font-size: 0.85em;
             margin-bottom: 15px;
         }
-        .req-item {
-            background: rgba(0,0,0,0.05);
-            padding: 3px 8px;
-            border-left: 3px solid var(--border-brown);
-        }
+        .req-item { background: rgba(0,0,0,0.05); padding: 3px 8px; border-left: 3px solid var(--border-brown); }
         .req-full { grid-column: 1 / -1; }
 
         .skill-desc { line-height: 1.6; flex-grow: 1; margin-bottom: 15px; border-top: 1px solid rgba(0,0,0,0.1); padding-top: 10px; }
@@ -163,13 +142,11 @@
             padding-top: 8px;
         }
 
-        /* 标签颜色 */
         .tag { font-weight: bold; margin-right: 4px; }
         .tag-warrior { color: var(--warrior-red); }
         .tag-ranger { color: var(--ranger-green); }
         .tag-mage { color: var(--mage-blue); }
         .tag-guardian { color: var(--guardian-yellow); }
-        
         .el-tag { padding: 1px 4px; border-radius: 2px; color: white; font-size: 0.9em; margin-right: 2px; display: inline-block; }
 
         @media (max-width: 600px) {
@@ -187,7 +164,6 @@
     </header>
 
     <div class="filter-panel">
-        <!-- 评级 -->
         <div class="filter-row">
             <div class="filter-label">粹晶评级</div>
             <div class="filter-options" id="filter-grade">
@@ -199,7 +175,6 @@
                 <button class="filter-btn" data-cat="grade" data-val="blackgold">黑金</button>
             </div>
         </div>
-        <!-- 职业 -->
         <div class="filter-row">
             <div class="filter-label">职业要求</div>
             <div class="filter-options" id="filter-class">
@@ -210,7 +185,6 @@
                 <button class="filter-btn" data-cat="classes" data-val="guardian">守护者</button>
             </div>
         </div>
-        <!-- 特性 -->
         <div class="filter-row">
             <div class="filter-label">特性要求</div>
             <div class="filter-options" id="filter-trait">
@@ -223,7 +197,6 @@
                 <button class="filter-btn" data-cat="traits" data-val="魅惑者">魅惑者</button>
             </div>
         </div>
-        <!-- 属性 -->
         <div class="filter-row">
             <div class="filter-label">属性要求</div>
             <div class="filter-options" id="filter-attr">
@@ -234,44 +207,12 @@
                 <button class="filter-btn" data-cat="attrs" data-val="意志">意志</button>
             </div>
         </div>
-        <!-- 武器 -->
-        <div class="filter-row">
-            <div class="filter-label">武器要求</div>
-            <div class="filter-options" id="filter-weapon">
-                <button class="filter-btn active" data-cat="weapons" data-val="all">全部</button>
-                <button class="filter-btn" data-cat="weapons" data-val="轻武器">轻武器</button>
-                <button class="filter-btn" data-cat="weapons" data-val="重武器">重武器</button>
-                <button class="filter-btn" data-cat="weapons" data-val="远程武器">远程武器</button>
-                <button class="filter-btn" data-cat="weapons" data-val="施法武器">施法武器</button>
-                <button class="filter-btn" data-cat="weapons" data-val="双持武器">双持武器</button>
-                <button class="filter-btn" data-cat="weapons" data-val="盾牌">盾牌</button>
-            </div>
-        </div>
-        <!-- 元素 -->
-        <div class="filter-row">
-            <div class="filter-label">元素要求</div>
-            <div class="filter-options" id="filter-element">
-                <button class="filter-btn active" data-cat="elements" data-val="all">全部</button>
-                <button class="filter-btn" data-cat="elements" data-val="水">水</button>
-                <button class="filter-btn" data-cat="elements" data-val="火">火</button>
-                <button class="filter-btn" data-cat="elements" data-val="雷">雷</button>
-                <button class="filter-btn" data-cat="elements" data-val="风">风</button>
-                <button class="filter-btn" data-cat="elements" data-val="光">光</button>
-                <button class="filter-btn" data-cat="elements" data-val="暗">暗</button>
-                <button class="filter-btn" data-cat="elements" data-val="生命">生命</button>
-                <button class="filter-btn" data-cat="elements" data-val="大地">大地</button>
-                <button class="filter-btn" data-cat="elements" data-val="空间">空间</button>
-            </div>
-        </div>
     </div>
 
-    <div class="skill-grid" id="skill-display">
-        <!-- 技能卡片 -->
-    </div>
+    <div class="skill-grid" id="skill-display"></div>
 </div>
 
 <script>
-    // 1. 技能数据库 (确保每个字段都有默认值防止报错)
     const skillDatabase = [
         {
             title: "元素打击",
@@ -279,7 +220,7 @@
             classes: ["mage", "guardian"],
             traits: ["法术特质", "龙息", "魔纹"],
             attrs: ["智力"],
-            weapons: ["施法武器", "轻武器"],
+            weapons: ["施法武器"],
             elements: ["水", "火", "雷", "风", "光", "暗", "生命", "大地", "空间"],
             desc: "运用你的属性进行一次在30m内的小范围法术打击。",
             cooldown: "在使用后进入1回合冷却。"
@@ -338,6 +279,72 @@
             elements: ["无"],
             desc: "立即抽出武器射出一发快速的箭矢/弹药，可穿插在任意非技能的动作内。",
             cooldown: "在使用后进入1回合冷却。"
+        },
+        {
+            title: "附魔",
+            grade: "bronze",
+            classes: ["warrior", "ranger", "mage", "guardian"],
+            traits: ["法术特质", "魔纹"],
+            attrs: ["智力"],
+            weapons: ["无"],
+            elements: ["无"],
+            desc: "为下一次物理攻击附着你所拥有的元素，造成额外伤害。可以进行1回合的延长，但效果会产生弱化。",
+            cooldown: "进入2/3回合冷却。"
+        },
+        {
+            title: "广域打击",
+            grade: "silver",
+            classes: ["mage", "guardian"],
+            traits: ["法术特质", "龙息", "魔纹"],
+            attrs: ["智力"],
+            weapons: ["施法武器"],
+            elements: ["水", "火", "雷", "风", "光", "暗", "生命", "大地", "空间"],
+            desc: "运用你的属性进行一次在30m内进行一次不超过10平方米的范围法术打击。",
+            cooldown: "在使用后进入3回合冷却。"
+        },
+        {
+            title: "意志澎发",
+            grade: "silver",
+            classes: ["warrior", "guardian"],
+            traits: ["无"],
+            attrs: ["意志"],
+            weapons: ["无"],
+            elements: ["无"],
+            desc: "获得临时的意志+，并且提升战斗能力。在受伤或疲态时，可以此短暂屏蔽伤势，以全盛姿态发起进攻。在守护者使用时，可以将此技能赋予他人。",
+            cooldown: "持续2回合，在使用后进入3回合冷却。"
+        },
+        {
+            title: "附魔",
+            grade: "bronze",
+            classes: ["warrior", "ranger", "mage", "guardian"], // 无要求即全职业可选
+            traits: ["法术特质", "魔纹"],
+            attrs: ["智力"],
+            weapons: ["无"],
+            elements: ["无"],
+            desc: "为下一次物理攻击附着你所拥有的元素，造成额外伤害。可以进行1回合的延长，但效果会产生弱化。",
+            cooldown: "即时生效，持续至攻击结束。"
+        },
+        {
+            title: "广域打击",
+            grade: "bronze",
+            classes: ["mage", "guardian"],
+            traits: ["法术特质", "龙息", "魔纹"],
+            attrs: ["智力"],
+            weapons: ["施法武器"],
+            elements: ["水", "火", "雷", "风", "光", "暗", "生命", "大地", "空间"],
+            desc: "运用你的属性进行一次在30m内进行一次不超过10平方米的范围法术打击。",
+            cooldown: "在使用后进入3回合冷却。"
+        },
+        {
+            title: "意志澎发",
+            grade: "bronze",
+            classes: ["warrior", "guardian"],
+            traits: ["无"],
+            attrs: ["意志"],
+            weapons: ["无"],
+            elements: ["无"],
+            desc: "获得临时的意志+，并且提升战斗能力。在受伤或疲态时，可以此短暂屏蔽伤势，以全盛姿态发起进攻。在守护者使用时，可以将此技能赋予他人。",
+            cooldown: "持续2回合，使用后进入3回合冷却。"
         }
     ];
 
@@ -345,58 +352,41 @@
     const classMap = { warrior: "战士", ranger: "游侠", mage: "术法", guardian: "守护者" };
     const elColorMap = { "水": "el-water", "火": "el-fire", "雷": "el-thunder", "风": "el-wind", "光": "el-light", "暗": "el-dark", "生命": "el-life", "大地": "el-earth", "空间": "el-space" };
 
-    // 2. 筛选逻辑
-    let activeFilters = { 
-        grade: 'all', 
-        classes: 'all', 
-        traits: 'all', 
-        attrs: 'all', 
-        weapons: 'all', 
-        elements: 'all' 
-    };
+    let activeFilters = { grade: 'all', classes: 'all', traits: 'all', attrs: 'all' };
 
     function render() {
         const container = document.getElementById('skill-display');
-        if (!container) return;
         container.innerHTML = '';
 
         const filtered = skillDatabase.filter(s => {
-            try {
-                return (activeFilters.grade === 'all' || s.grade === activeFilters.grade) &&
-                       (activeFilters.classes === 'all' || (s.classes || []).includes(activeFilters.classes)) &&
-                       (activeFilters.traits === 'all' || (s.traits || []).includes(activeFilters.traits)) &&
-                       (activeFilters.attrs === 'all' || (s.attrs || []).includes(activeFilters.attrs)) &&
-                       (activeFilters.weapons === 'all' || (s.weapons || []).includes(activeFilters.weapons)) &&
-                       (activeFilters.elements === 'all' || (s.elements || []).includes(activeFilters.elements));
-            } catch (e) {
-                console.error("筛选出错:", e, s);
-                return false;
-            }
+            return (activeFilters.grade === 'all' || s.grade === activeFilters.grade) &&
+                   (activeFilters.classes === 'all' || s.classes.includes(activeFilters.classes)) &&
+                   (activeFilters.traits === 'all' || s.traits.includes(activeFilters.traits)) &&
+                   (activeFilters.attrs === 'all' || s.attrs.includes(activeFilters.attrs));
         });
 
         if (filtered.length === 0) {
-            container.innerHTML = '<p style="grid-column: 1/-1; text-align:center; color: white; padding: 50px;">没有找到符合条件的粹晶技能。</p>';
+            container.innerHTML = '<p style="grid-column: 1/-1; text-align:center; color: white; padding: 50px;">未发现符合条件的粹晶。</p>';
             return;
         }
 
         filtered.forEach(s => {
             const card = document.createElement('div');
             card.className = 'skill-card';
-            
-            const classHtml = (s.classes || []).map(c => `<span class="tag tag-${c}">${classMap[c] || c}</span>`).join('/');
-            const elHtml = (!s.elements || s.elements[0] === "无") ? "无" : s.elements.map(e => `<span class="el-tag" style="background:var(--${elColorMap[e]})">${e}</span>`).join('');
+            const classHtml = s.classes.map(c => `<span class="tag tag-${c}">${classMap[c]}</span>`).join('/');
+            const elHtml = (s.elements[0] === "无") ? "无" : s.elements.map(e => `<span class="el-tag" style="background:var(--${elColorMap[e]})">${e}</span>`).join('');
 
             card.innerHTML = `
                 <div class="skill-header">
                     <span class="skill-title">${s.title}</span>
-                    <span class="skill-grade grade-${s.grade}">${gradeMap[s.grade] || s.grade}</span>
+                    <span class="skill-grade grade-${s.grade}">${gradeMap[s.grade]}</span>
                 </div>
                 <div class="req-grid">
-                    <div class="req-item"><strong>职业:</strong> ${classHtml}</div>
-                    <div class="req-item"><strong>属性:</strong> ${(s.attrs || []).join('/')}</div>
-                    <div class="req-item"><strong>特性:</strong> ${(s.traits || []).join(', ')}</div>
-                    <div class="req-item"><strong>武器:</strong> ${(s.weapons || []).join(', ')}</div>
-                    <div class="req-full req-item"><strong>元素流派:</strong> ${elHtml}</div>
+                    <div class="req-item"><strong>要求职业:</strong> ${classHtml}</div>
+                    <div class="req-item"><strong>要求属性:</strong> ${s.attrs.join('/')}</div>
+                    <div class="req-item"><strong>要求特性:</strong> ${s.traits.join(', ')}</div>
+                    <div class="req-item"><strong>武器限制:</strong> ${s.weapons.join(', ')}</div>
+                    <div class="req-full req-item"><strong>适用元素:</strong> ${elHtml}</div>
                 </div>
                 <div class="skill-desc">${s.desc}</div>
                 <div class="skill-cooldown">${s.cooldown}</div>
@@ -405,28 +395,18 @@
         });
     }
 
-    // 3. 事件绑定 (使用 window.onload 确保 DOM 加载完毕)
     window.onload = function() {
         const buttons = document.querySelectorAll('.filter-btn');
         buttons.forEach(btn => {
             btn.addEventListener('click', function() {
                 const cat = this.getAttribute('data-cat');
                 const val = this.getAttribute('data-val');
-                
-                // 切换按钮状态
-                const parent = this.parentElement;
-                parent.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+                this.parentElement.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
                 this.classList.add('active');
-
-                // 更新筛选状态
                 activeFilters[cat] = val;
-                
-                // 重新渲染
                 render();
             });
         });
-
-        // 初始渲染
         render();
     };
 </script>
