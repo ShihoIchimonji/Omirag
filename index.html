@@ -536,10 +536,32 @@
         </div>
     </details>
 
-<!-- 4. 元素 -->
+<!-- 4. 元素与魔法 -->
 <details class="parchment-section" open>
-    <summary class="section-header">元素定义</summary>
+    <summary class="section-header">元素与魔法</summary>
     <div class="parchment-body">
+        
+        <h3>天赋与亲和</h3>
+        <div class="text-block">
+            法术并非人人可习得的通用技艺，而是与生俱来的天赋。一名施法者天生便对单一元素具备亲和力——水、火、雷、风、光、暗、生命、大地，八大元素中择一而精。多属性者并非不存在，但往往“贪多嚼不烂”，多元素掌控者寥寥可数。<br>
+            法术的普及程度因地域而异。精灵对“生命”元素有着天然的掌控力，即便是缺乏魔法天赋的普通精灵，也能轻松做到催生藤蔓升降、让树苗破土而出。这份与生俱来的生命亲和力也正是他们选择栖居于森林深处的原因。
+        </div>
+
+        <h3>魔纹</h3>
+        <div class="text-block">
+            魔人的身体上天生便覆盖着独一无二的纹路，其具体分布地点和纹样因人而异，并且会随着引导魔力而亮起。<br>
+            魔纹的本质可以理解为“魔力意义上的凹槽”。当魔力流经这些纹路时，会被引导至特定的“线路”，从而稳定地构筑出法术。这与寻常施法者直接调动、塑形魔力的方式截然不同，更像是在身体里预埋了一套法术回路。<br>
+            魔纹允许魔人在近战中流畅地施法。将火焰缠绕于武器上进行附魔打击、在格挡的同时触发冰霜反击——这种“法术战士”或“近战法师”的战斗风格，对魔人而言是刻入血脉的本能。
+        </div>
+
+        <h3>紊乱</h3>
+        <div class="text-block">
+            是指施法者的法术在运行过程中受到外力干扰、反噬或超负荷时所产生的一系列异常状态。通俗点说，就是元素不服从命令了。<br>
+            可能触发的原因包括但不限于：魔力对拼时失败，施法中断，无视粹晶冷却强行施法，元素冲突。<br>
+            虽然这是所有施法者都会遇到的麻烦，但由于魔人的法术高度依赖身体上的魔纹释放，因此在他们身上可能会额外导致腰酸背痛至腱鞘炎不等。
+        </div>
+
+        <h3>元素定义</h3>
         <div class="text-block">
             世间存在诸多不同元素，根据其特性分成了简单的大类。人们更倾向于以更细分的元素去命名武器或者生物，例如“带毒的狼”或“水晶螃蟹”。
         </div>
@@ -674,7 +696,7 @@
         </div>
     </details>
 
-    <!-- 6. 种族与特性 -->
+    <!-- 6. 可选种族与特性 -->
     <details class="parchment-section" open>
         <summary class="section-header">种族与特性</summary>
         <div class="parchment-body">
@@ -755,7 +777,7 @@
 
                 <!-- 元素役 -->
                 <div id="element" class="pane race-pane">
-                    <div class="text-block">因各种原因（包括但不限于乱性、诅咒、契约）而获得一部分元素血脉的孩子。并不是完全的元素灵，仍然拥有肉体凡胎。与此同时，他们可能拥有其他种族的外貌，但是其特性与能力已经完全被元素所替代。与此同时，他们身上也会出现元素的特征，比如说如同水一般流淌，或火一般燃烧的发尾。</div>
+                    <div class="text-block">因各种原因（包括但不限于乱性、诅咒、契约）而获得一部分元素血脉的孩子。并不是完全的元素灵，也不一定与元素灵有关系，仍然拥有肉体凡胎。与此同时，他们可能拥有其他种族的外貌，但是其特性与能力已经完全被元素所替代。与此同时，他们身上也会出现元素的特征，比如说如同水一般流淌，或火一般燃烧的发尾。</div>
                     <table class="trait-table">
                         <tr><th>特性名</th><th>特性介绍</th><th>增幅属性</th></tr>
                         <tr><td>元素化身（固定）</td><td>你的本质的一部分被元素替代，你能够选择了火、水、土、风等一种元素作为你的本源。</td><td>智力</td></tr>
@@ -785,6 +807,92 @@
                         <tr><td>炼狱体质</td><td>你的身躯经过地狱的锻炼。其耐受力，持续力更为优秀。</td><td>力量</td></tr>
                         <tr><td>魅惑者</td><td>你具有一定程度的恶魔血统，因此也能够使用魅惑类的魔法。在日常中你也可以使用魅惑法术，但是如果被发现的话可能会招来恶感。</td><td>—</td></tr>
                     </table>
+                </div>
+            </div>
+        </div>
+    </details>
+
+    <!-- 7. 不可选种族 -->
+    <details class="parchment-section"open>
+        <summary class="section-header">不可选种族</summary>
+        <div class="parchment-body">
+            <div class="text-block">除了能够成为冒险者的种族，大陆上还存在着其他种族。这些流淌着不同血脉的存在构成了这个世界的一环。其实力，能力与外观也缤纷多样。</div>
+
+            <div class="tab-container">
+                <div class="tab-btn active" onclick="showTab('npc-race', 'npc-dragon', this)">龙</div>
+                <div class="tab-btn" onclick="showTab('npc-race', 'npc-element', this)">元素灵</div>
+                <div class="tab-btn" onclick="showTab('npc-race', 'npc-vampire', this)">血族</div>
+                <div class="tab-btn" onclick="showTab('npc-race', 'npc-demon', this)">恶魔与魔鬼</div>
+                <div class="tab-btn" onclick="showTab('npc-race', 'npc-mermaid', this)">人鱼</div>
+                <div class="tab-btn" onclick="showTab('npc-race', 'npc-beast', this)">海兽与巨兽</div>
+                <div class="tab-btn" onclick="showTab('npc-race', 'npc-goblin', this)">哥布林</div>
+                <div class="tab-btn" onclick="showTab('npc-race', 'npc-gnome', this)">地精</div>
+                <div class="tab-btn" onclick="showTab('npc-race', 'npc-halforc', this)">半兽人</div>
+            </div>
+
+            <div class="content-box">
+                <!-- 龙 -->
+                <div id="npc-dragon" class="pane npc-race-pane active">
+                    <div class="text-block">
+                        具有龙与亚龙的差别。<br>
+                        真正的龙是几乎立于世界的顶端的种族，其外形，习性与元素多种多样，同样御使雷霆的龙也可能不是同一种类，但无一例外的是其天生的强大实力。虽然大多数龙族不依赖魔法操控自己的元素，但是它们基本都会使用基本的龙血魔法，以及化形为类人形态的能力。<br>
+                        没有统一的社会结构，多数时间单独或者以家族为一个集体居住。由于有子嗣非常困难，因此绝大多数龙类都相当的护犊子。<br>
+                        亚龙可以理解为不具备思考与智慧的龙兽，具备龙类的特征，但行动逻辑与大型食肉动物无异。只有极少数具备法术能力，多数亚龙使用吐息，利爪进行战斗。<br>
+                        龙骑士多数时间骑乘的便是亚龙，但龙裔一般来源于真龙。
+                    </div>
+                </div>
+
+                <!-- 元素灵 -->
+                <div id="npc-element" class="pane npc-race-pane">
+                    <div class="text-block">
+                        完全由元素构成的生灵，其诞生来自于在元素浓郁的地方自主聚集产生初步意识，后随着时间逐渐成长。通常时间，会更愿意亲和相同属性的其他生物。<br>
+                        因为其成长与实力高度与所在环境相关，所以其实力范围实际上相当不稳定，但也同样的造就了恐怖的成长性。<br>
+                        有些元素灵会和其他生物签订契约，共享自己的法术能力，并且以此收取一定的代价。<br>
+                        这份对契约的了解也一并传给了元素裔。<br>
+                    </div>
+                </div>
+
+                <!-- 血族 -->
+                <div id="npc-vampire" class="pane npc-race-pane">
+                    <div class="text-block">
+                        自始祖该隐第一次对其他生命共享血液时诞生的族裔。其实力随着血脉的稀释与传承逐渐降低，并且没有直接传宗接代的手段，一般情况下严重依赖于初拥。<br>
+                        目前大致已经有了约40代左右，接下来的被初拥的血族已经不能算作纯血，顶多是具有一定血族权能。<br>
+                        惧怕阳光，惧怕银器，不过血统越纯的血族对此的耐受力越强。<br>
+                        并且拥有调动血液的能力，也被称之为血魔法。红眼与尖牙是他们的特征，不过在平常时间，多数血族都会选择隐藏。
+                    </div>
+                </div>
+
+                <!-- 恶魔与魔鬼 -->
+                <div id="npc-demon" class="pane npc-race-pane">
+                    <div class="text-block">占位符</div>
+                </div>
+
+                <!-- 人鱼 -->
+                <div id="npc-mermaid" class="pane npc-race-pane">
+                    <div class="text-block">占位符</div>
+                </div>
+
+                <!-- 海兽与巨兽 -->
+                <div id="npc-beast" class="pane npc-race-pane">
+                    <div class="text-block">占位符</div>
+                </div>
+
+                <!-- 哥布林 -->
+                <div id="npc-goblin" class="pane npc-race-pane">
+                    <div class="text-block">
+                        身高在0.7-1.2m不等的，绿色皮肤的尖耳朵大鼻子种族。通常智力水平对比人类的话，大致只在7~10岁。<br>
+                        <i>冒险者协会对他们盘活了青铜委托的半壁江山表示感谢。</i>
+                    </div>
+                </div>
+
+                <!-- 地精 -->
+                <div id="npc-gnome" class="pane npc-race-pane">
+                    <div class="text-block">占位符</div>
+                </div>
+
+                <!-- 半兽人 -->
+                <div id="npc-halforc" class="pane npc-race-pane">
+                    <div class="text-block">占位符</div>
                 </div>
             </div>
         </div>
