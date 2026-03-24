@@ -1,0 +1,435 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <title>奥米拉格大陆 - 技能速查手册</title>
+    <style>
+        :root {
+            --bg-dark: #1a0f08;
+            --paper-base: #f2e1b9;
+            --paper-darker: #e6d2a1;
+            --border-brown: #5d3a1a;
+            --accent-gold: #d4af37;
+            --text-main: #2b1d0e;
+            /* 职业颜色 */
+            --warrior-red: #8b0000;
+            --ranger-green: #2e7d32;
+            --mage-blue: #1565c0;
+            --guardian-yellow: #b8860b;
+            /* 元素颜色 */
+            --el-water: #2196F3; --el-fire: #f44336; --el-thunder: #9c27b0;
+            --el-wind: #4dd0e1; --el-light: #fbc02d; --el-dark: #37474f;
+            --el-life: #4caf50; --el-earth: #795548; --el-space: #9e9e9e;
+        }
+
+        body {
+            background-color: var(--bg-dark);
+            background-image: radial-gradient(circle at center, transparent 0%, rgba(0,0,0,0.4) 100%), url('https://www.transparenttextures.com/patterns/dark-wood.png');
+            color: var(--text-main);
+            font-family: "Palatino Linotype", "Book Antiqua", Palatino, "Microsoft YaHei", serif;
+            margin: 0;
+            padding: 40px 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .container { max-width: 1100px; width: 100%; }
+
+        header {
+            text-align: center;
+            color: var(--accent-gold);
+            margin-bottom: 40px;
+            text-shadow: 0 0 15px rgba(212, 175, 55, 0.5), 2px 2px 5px rgba(0,0,0,0.8);
+        }
+
+        /* 筛选面板 */
+        .filter-panel {
+            background: var(--paper-darker);
+            background-image: url('https://www.transparenttextures.com/patterns/paper-fibers.png');
+            border: 2px solid var(--border-brown);
+            padding: 20px;
+            box-shadow: 4px 4px 15px rgba(0,0,0,0.5);
+            margin-bottom: 30px;
+        }
+
+        .filter-row {
+            display: flex;
+            align-items: flex-start;
+            margin-bottom: 12px;
+            border-bottom: 1px dashed rgba(93, 58, 26, 0.3);
+            padding-bottom: 8px;
+        }
+
+        .filter-row:last-child { border-bottom: none; }
+
+        .filter-label {
+            font-weight: bold;
+            width: 100px;
+            color: #4e342e;
+            flex-shrink: 0;
+            padding-top: 4px;
+        }
+
+        .filter-options {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 6px;
+        }
+
+        .filter-btn {
+            padding: 4px 10px;
+            background: var(--paper-base);
+            border: 1px solid var(--border-brown);
+            cursor: pointer;
+            font-size: 0.85em;
+            transition: all 0.2s;
+            outline: none;
+        }
+
+        .filter-btn:hover { background: #dcc28a; }
+        .filter-btn.active {
+            background: #4e342e;
+            color: var(--accent-gold);
+            box-shadow: 0 0 8px var(--accent-gold);
+            border-color: var(--accent-gold);
+        }
+
+        /* 技能展示区 */
+        .skill-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(480px, 1fr));
+            gap: 20px;
+        }
+
+        .skill-card {
+            background: var(--paper-base);
+            background-image: url('https://www.transparenttextures.com/patterns/paper-fibers.png');
+            border: 1px solid var(--border-brown);
+            padding: 20px;
+            box-shadow: 6px 6px 15px rgba(0,0,0,0.4);
+            display: flex;
+            flex-direction: column;
+            position: relative;
+        }
+
+        .skill-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 2px solid var(--border-brown);
+            padding-bottom: 5px;
+            margin-bottom: 10px;
+        }
+
+        .skill-title { font-size: 1.3em; font-weight: bold; color: #4e342e; }
+        
+        .skill-grade {
+            padding: 2px 8px;
+            font-size: 0.8em;
+            font-weight: bold;
+            color: white;
+            border-radius: 3px;
+        }
+        .grade-bronze { background: #cd7f32; }
+        .grade-silver { background: #9e9e9e; }
+        .grade-gold { background: #d4af37; color: #2b1d0e; }
+        .grade-platinum { background: #e5e4e2; color: #4e342e; border: 1px solid #999; }
+        .grade-blackgold { background: #1a1a1a; color: var(--accent-gold); border: 1px solid var(--accent-gold); }
+
+        /* 要求区域 */
+        .req-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 5px;
+            font-size: 0.85em;
+            margin-bottom: 15px;
+        }
+        .req-item {
+            background: rgba(0,0,0,0.05);
+            padding: 3px 8px;
+            border-left: 3px solid var(--border-brown);
+        }
+        .req-full { grid-column: 1 / -1; }
+
+        .skill-desc { line-height: 1.6; flex-grow: 1; margin-bottom: 15px; border-top: 1px solid rgba(0,0,0,0.1); padding-top: 10px; }
+        
+        .skill-cooldown {
+            font-style: italic;
+            color: #7b5e57;
+            text-align: right;
+            font-size: 0.9em;
+            border-top: 1px dashed rgba(93, 58, 26, 0.3);
+            padding-top: 8px;
+        }
+
+        /* 标签颜色 */
+        .tag { font-weight: bold; margin-right: 4px; }
+        .tag-warrior { color: var(--warrior-red); }
+        .tag-ranger { color: var(--ranger-green); }
+        .tag-mage { color: var(--mage-blue); }
+        .tag-guardian { color: var(--guardian-yellow); }
+        
+        .el-tag { padding: 1px 4px; border-radius: 2px; color: white; font-size: 0.9em; margin-right: 2px; display: inline-block; }
+
+        @media (max-width: 600px) {
+            .skill-grid { grid-template-columns: 1fr; }
+            .req-grid { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <header>
+        <h1>技能速查手册</h1>
+        <p style="color: var(--paper-darker); opacity: 0.8;">—— 冒险者协会粹晶库索引系统 ——</p>
+    </header>
+
+    <div class="filter-panel">
+        <!-- 评级 -->
+        <div class="filter-row">
+            <div class="filter-label">粹晶评级</div>
+            <div class="filter-options" id="filter-grade">
+                <button class="filter-btn active" data-cat="grade" data-val="all">全部</button>
+                <button class="filter-btn" data-cat="grade" data-val="bronze">青铜</button>
+                <button class="filter-btn" data-cat="grade" data-val="silver">白银</button>
+                <button class="filter-btn" data-cat="grade" data-val="gold">黄金</button>
+                <button class="filter-btn" data-cat="grade" data-val="platinum">白金</button>
+                <button class="filter-btn" data-cat="grade" data-val="blackgold">黑金</button>
+            </div>
+        </div>
+        <!-- 职业 -->
+        <div class="filter-row">
+            <div class="filter-label">职业要求</div>
+            <div class="filter-options" id="filter-class">
+                <button class="filter-btn active" data-cat="classes" data-val="all">全部</button>
+                <button class="filter-btn" data-cat="classes" data-val="warrior">战士</button>
+                <button class="filter-btn" data-cat="classes" data-val="ranger">游侠</button>
+                <button class="filter-btn" data-cat="classes" data-val="mage">术法</button>
+                <button class="filter-btn" data-cat="classes" data-val="guardian">守护者</button>
+            </div>
+        </div>
+        <!-- 特性 -->
+        <div class="filter-row">
+            <div class="filter-label">特性要求</div>
+            <div class="filter-options" id="filter-trait">
+                <button class="filter-btn active" data-cat="traits" data-val="all">全部</button>
+                <button class="filter-btn" data-cat="traits" data-val="法术特质">法术特质</button>
+                <button class="filter-btn" data-cat="traits" data-val="魔纹">魔纹</button>
+                <button class="filter-btn" data-cat="traits" data-val="龙息">龙息</button>
+                <button class="filter-btn" data-cat="traits" data-val="信徒">信徒</button>
+                <button class="filter-btn" data-cat="traits" data-val="飞行能力">飞行能力</button>
+                <button class="filter-btn" data-cat="traits" data-val="魅惑者">魅惑者</button>
+            </div>
+        </div>
+        <!-- 属性 -->
+        <div class="filter-row">
+            <div class="filter-label">属性要求</div>
+            <div class="filter-options" id="filter-attr">
+                <button class="filter-btn active" data-cat="attrs" data-val="all">全部</button>
+                <button class="filter-btn" data-cat="attrs" data-val="力量">力量</button>
+                <button class="filter-btn" data-cat="attrs" data-val="敏捷">敏捷</button>
+                <button class="filter-btn" data-cat="attrs" data-val="智力">智力</button>
+                <button class="filter-btn" data-cat="attrs" data-val="意志">意志</button>
+            </div>
+        </div>
+        <!-- 武器 -->
+        <div class="filter-row">
+            <div class="filter-label">武器要求</div>
+            <div class="filter-options" id="filter-weapon">
+                <button class="filter-btn active" data-cat="weapons" data-val="all">全部</button>
+                <button class="filter-btn" data-cat="weapons" data-val="轻武器">轻武器</button>
+                <button class="filter-btn" data-cat="weapons" data-val="重武器">重武器</button>
+                <button class="filter-btn" data-cat="weapons" data-val="远程武器">远程武器</button>
+                <button class="filter-btn" data-cat="weapons" data-val="施法武器">施法武器</button>
+                <button class="filter-btn" data-cat="weapons" data-val="双持武器">双持武器</button>
+                <button class="filter-btn" data-cat="weapons" data-val="盾牌">盾牌</button>
+            </div>
+        </div>
+        <!-- 元素 -->
+        <div class="filter-row">
+            <div class="filter-label">元素要求</div>
+            <div class="filter-options" id="filter-element">
+                <button class="filter-btn active" data-cat="elements" data-val="all">全部</button>
+                <button class="filter-btn" data-cat="elements" data-val="水">水</button>
+                <button class="filter-btn" data-cat="elements" data-val="火">火</button>
+                <button class="filter-btn" data-cat="elements" data-val="雷">雷</button>
+                <button class="filter-btn" data-cat="elements" data-val="风">风</button>
+                <button class="filter-btn" data-cat="elements" data-val="光">光</button>
+                <button class="filter-btn" data-cat="elements" data-val="暗">暗</button>
+                <button class="filter-btn" data-cat="elements" data-val="生命">生命</button>
+                <button class="filter-btn" data-cat="elements" data-val="大地">大地</button>
+                <button class="filter-btn" data-cat="elements" data-val="空间">空间</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="skill-grid" id="skill-display">
+        <!-- 技能卡片 -->
+    </div>
+</div>
+
+<script>
+    // 1. 技能数据库 (确保每个字段都有默认值防止报错)
+    const skillDatabase = [
+        {
+            title: "元素打击",
+            grade: "bronze",
+            classes: ["mage", "guardian"],
+            traits: ["法术特质", "龙息", "魔纹"],
+            attrs: ["智力"],
+            weapons: ["施法武器", "轻武器"],
+            elements: ["水", "火", "雷", "风", "光", "暗", "生命", "大地", "空间"],
+            desc: "运用你的属性进行一次在30m内的小范围法术打击。",
+            cooldown: "在使用后进入1回合冷却。"
+        },
+        {
+            title: "重击/斩击",
+            grade: "bronze",
+            classes: ["warrior", "ranger", "guardian"],
+            traits: ["无"],
+            attrs: ["力量"],
+            weapons: ["重武器", "轻武器"],
+            elements: ["无"],
+            desc: "调动全身力气，使用你的武器立即进行一次重击/斩击。",
+            cooldown: "在使用后进入1回合冷却。"
+        },
+        {
+            title: "突刺",
+            grade: "bronze",
+            classes: ["warrior", "ranger"],
+            traits: ["无"],
+            attrs: ["敏捷"],
+            weapons: ["轻武器"],
+            elements: ["无"],
+            desc: "进行一次最大10m的快速位移，并且挥出一斩。",
+            cooldown: "在使用后进入1回合冷却。"
+        },
+        {
+            title: "治愈术",
+            grade: "bronze",
+            classes: ["guardian"],
+            traits: ["法术特质", "信徒"],
+            attrs: ["意志"],
+            weapons: ["施法武器"],
+            elements: ["光", "生命"],
+            desc: "立即为30m内的一名友方单位恢复生命值，可额外消除一个非诅咒类的中毒或流血效果。",
+            cooldown: "在使用后进入3回合冷却。"
+        },
+        {
+            title: "招架",
+            grade: "bronze",
+            classes: ["warrior", "guardian"],
+            traits: ["无"],
+            attrs: ["力量", "意志"],
+            weapons: ["盾牌", "重武器"],
+            elements: ["无"],
+            desc: "在原地架起武器，招架一次攻击。在招架后可以申请进行一次反击。",
+            cooldown: "在使用后进入2回合冷却。"
+        },
+        {
+            title: "速射",
+            grade: "bronze",
+            classes: ["warrior", "ranger", "mage", "guardian"],
+            traits: ["无"],
+            attrs: ["敏捷"],
+            weapons: ["远程武器"],
+            elements: ["无"],
+            desc: "立即抽出武器射出一发快速的箭矢/弹药，可穿插在任意非技能的动作内。",
+            cooldown: "在使用后进入1回合冷却。"
+        }
+    ];
+
+    const gradeMap = { bronze: "青铜", silver: "白银", gold: "黄金", platinum: "白金", blackgold: "黑金" };
+    const classMap = { warrior: "战士", ranger: "游侠", mage: "术法", guardian: "守护者" };
+    const elColorMap = { "水": "el-water", "火": "el-fire", "雷": "el-thunder", "风": "el-wind", "光": "el-light", "暗": "el-dark", "生命": "el-life", "大地": "el-earth", "空间": "el-space" };
+
+    // 2. 筛选逻辑
+    let activeFilters = { 
+        grade: 'all', 
+        classes: 'all', 
+        traits: 'all', 
+        attrs: 'all', 
+        weapons: 'all', 
+        elements: 'all' 
+    };
+
+    function render() {
+        const container = document.getElementById('skill-display');
+        if (!container) return;
+        container.innerHTML = '';
+
+        const filtered = skillDatabase.filter(s => {
+            try {
+                return (activeFilters.grade === 'all' || s.grade === activeFilters.grade) &&
+                       (activeFilters.classes === 'all' || (s.classes || []).includes(activeFilters.classes)) &&
+                       (activeFilters.traits === 'all' || (s.traits || []).includes(activeFilters.traits)) &&
+                       (activeFilters.attrs === 'all' || (s.attrs || []).includes(activeFilters.attrs)) &&
+                       (activeFilters.weapons === 'all' || (s.weapons || []).includes(activeFilters.weapons)) &&
+                       (activeFilters.elements === 'all' || (s.elements || []).includes(activeFilters.elements));
+            } catch (e) {
+                console.error("筛选出错:", e, s);
+                return false;
+            }
+        });
+
+        if (filtered.length === 0) {
+            container.innerHTML = '<p style="grid-column: 1/-1; text-align:center; color: white; padding: 50px;">没有找到符合条件的粹晶技能。</p>';
+            return;
+        }
+
+        filtered.forEach(s => {
+            const card = document.createElement('div');
+            card.className = 'skill-card';
+            
+            const classHtml = (s.classes || []).map(c => `<span class="tag tag-${c}">${classMap[c] || c}</span>`).join('/');
+            const elHtml = (!s.elements || s.elements[0] === "无") ? "无" : s.elements.map(e => `<span class="el-tag" style="background:var(--${elColorMap[e]})">${e}</span>`).join('');
+
+            card.innerHTML = `
+                <div class="skill-header">
+                    <span class="skill-title">${s.title}</span>
+                    <span class="skill-grade grade-${s.grade}">${gradeMap[s.grade] || s.grade}</span>
+                </div>
+                <div class="req-grid">
+                    <div class="req-item"><strong>职业:</strong> ${classHtml}</div>
+                    <div class="req-item"><strong>属性:</strong> ${(s.attrs || []).join('/')}</div>
+                    <div class="req-item"><strong>特性:</strong> ${(s.traits || []).join(', ')}</div>
+                    <div class="req-item"><strong>武器:</strong> ${(s.weapons || []).join(', ')}</div>
+                    <div class="req-full req-item"><strong>元素流派:</strong> ${elHtml}</div>
+                </div>
+                <div class="skill-desc">${s.desc}</div>
+                <div class="skill-cooldown">${s.cooldown}</div>
+            `;
+            container.appendChild(card);
+        });
+    }
+
+    // 3. 事件绑定 (使用 window.onload 确保 DOM 加载完毕)
+    window.onload = function() {
+        const buttons = document.querySelectorAll('.filter-btn');
+        buttons.forEach(btn => {
+            btn.addEventListener('click', function() {
+                const cat = this.getAttribute('data-cat');
+                const val = this.getAttribute('data-val');
+                
+                // 切换按钮状态
+                const parent = this.parentElement;
+                parent.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+                this.classList.add('active');
+
+                // 更新筛选状态
+                activeFilters[cat] = val;
+                
+                // 重新渲染
+                render();
+            });
+        });
+
+        // 初始渲染
+        render();
+    };
+</script>
+
+</body>
+</html>
