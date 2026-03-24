@@ -207,6 +207,23 @@
                 <button class="filter-btn" data-cat="attrs" data-val="意志">意志</button>
             </div>
         </div>
+        <!-- 新增：元素筛选行 -->
+        <div class="filter-row">
+            <div class="filter-label">元素属性</div>
+            <div class="filter-options" id="filter-element">
+                <button class="filter-btn active" data-cat="elements" data-val="all">全部</button>
+                <button class="filter-btn" data-cat="elements" data-val="火">火</button>
+                <button class="filter-btn" data-cat="elements" data-val="水">水</button>
+                <button class="filter-btn" data-cat="elements" data-val="雷">雷</button>
+                <button class="filter-btn" data-cat="elements" data-val="风">风</button>
+                <button class="filter-btn" data-cat="elements" data-val="光">光</button>
+                <button class="filter-btn" data-cat="elements" data-val="暗">暗</button>
+                <button class="filter-btn" data-cat="elements" data-val="生命">生命</button>
+                <button class="filter-btn" data-cat="elements" data-val="大地">大地</button>
+                <button class="filter-btn" data-cat="elements" data-val="空间">空间</button>
+                <button class="filter-btn" data-cat="elements" data-val="无">物理/无</button>
+            </div>
+        </div>
     </div>
 
     <div class="skill-grid" id="skill-display"></div>
@@ -287,7 +304,7 @@
             traits: ["法术特质", "魔纹"],
             attrs: ["智力"],
             weapons: ["无"],
-            elements: ["无"],
+            elements: ["水", "火", "雷", "风", "光", "暗", "生命", "大地", "空间"],
             desc: "为下一次物理攻击附着你所拥有的元素，造成额外伤害。可以进行1回合的延长，但效果会产生弱化。",
             cooldown: "进入2/3回合冷却。"
         },
@@ -312,39 +329,6 @@
             elements: ["无"],
             desc: "获得临时的意志+，并且提升战斗能力。在受伤或疲态时，可以此短暂屏蔽伤势，以全盛姿态发起进攻。在守护者使用时，可以将此技能赋予他人。",
             cooldown: "持续2回合，在使用后进入3回合冷却。"
-        },
-        {
-            title: "附魔",
-            grade: "bronze",
-            classes: ["warrior", "ranger", "mage", "guardian"], // 无要求即全职业可选
-            traits: ["法术特质", "魔纹"],
-            attrs: ["智力"],
-            weapons: ["无"],
-            elements: ["无"],
-            desc: "为下一次物理攻击附着你所拥有的元素，造成额外伤害。可以进行1回合的延长，但效果会产生弱化。",
-            cooldown: "即时生效，持续至攻击结束。"
-        },
-        {
-            title: "广域打击",
-            grade: "bronze",
-            classes: ["mage", "guardian"],
-            traits: ["法术特质", "龙息", "魔纹"],
-            attrs: ["智力"],
-            weapons: ["施法武器"],
-            elements: ["水", "火", "雷", "风", "光", "暗", "生命", "大地", "空间"],
-            desc: "运用你的属性进行一次在30m内进行一次不超过10平方米的范围法术打击。",
-            cooldown: "在使用后进入3回合冷却。"
-        },
-        {
-            title: "意志澎发",
-            grade: "bronze",
-            classes: ["warrior", "guardian"],
-            traits: ["无"],
-            attrs: ["意志"],
-            weapons: ["无"],
-            elements: ["无"],
-            desc: "获得临时的意志+，并且提升战斗能力。在受伤或疲态时，可以此短暂屏蔽伤势，以全盛姿态发起进攻。在守护者使用时，可以将此技能赋予他人。",
-            cooldown: "持续2回合，使用后进入3回合冷却。"
         }
     ];
 
@@ -352,7 +336,8 @@
     const classMap = { warrior: "战士", ranger: "游侠", mage: "术法", guardian: "守护者" };
     const elColorMap = { "水": "el-water", "火": "el-fire", "雷": "el-thunder", "风": "el-wind", "光": "el-light", "暗": "el-dark", "生命": "el-life", "大地": "el-earth", "空间": "el-space" };
 
-    let activeFilters = { grade: 'all', classes: 'all', traits: 'all', attrs: 'all' };
+    // 初始化筛选器，增加 elements 字段
+    let activeFilters = { grade: 'all', classes: 'all', traits: 'all', attrs: 'all', elements: 'all' };
 
     function render() {
         const container = document.getElementById('skill-display');
@@ -362,7 +347,9 @@
             return (activeFilters.grade === 'all' || s.grade === activeFilters.grade) &&
                    (activeFilters.classes === 'all' || s.classes.includes(activeFilters.classes)) &&
                    (activeFilters.traits === 'all' || s.traits.includes(activeFilters.traits)) &&
-                   (activeFilters.attrs === 'all' || s.attrs.includes(activeFilters.attrs));
+                   (activeFilters.attrs === 'all' || s.attrs.includes(activeFilters.attrs)) &&
+                   // 新增：判断技能的元素数组中是否包含选中的元素
+                   (activeFilters.elements === 'all' || s.elements.includes(activeFilters.elements));
         });
 
         if (filtered.length === 0) {
@@ -374,7 +361,9 @@
             const card = document.createElement('div');
             card.className = 'skill-card';
             const classHtml = s.classes.map(c => `<span class="tag tag-${c}">${classMap[c]}</span>`).join('/');
-            const elHtml = (s.elements[0] === "无") ? "无" : s.elements.map(e => `<span class="el-tag" style="background:var(--${elColorMap[e]})">${e}</span>`).join('');
+            const elHtml = (s.elements[0] === "无" && s.elements.length === 1) ? "无" : s.elements.map(e => {
+                return e === "无" ? "" : `<span class="el-tag" style="background:var(--${elColorMap[e]})">${e}</span>`;
+            }).join('');
 
             card.innerHTML = `
                 <div class="skill-header">
@@ -386,7 +375,7 @@
                     <div class="req-item"><strong>要求属性:</strong> ${s.attrs.join('/')}</div>
                     <div class="req-item"><strong>要求特性:</strong> ${s.traits.join(', ')}</div>
                     <div class="req-item"><strong>武器限制:</strong> ${s.weapons.join(', ')}</div>
-                    <div class="req-full req-item"><strong>适用元素:</strong> ${elHtml}</div>
+                    <div class="req-full req-item"><strong>适用元素:</strong> ${elHtml || "无"}</div>
                 </div>
                 <div class="skill-desc">${s.desc}</div>
                 <div class="skill-cooldown">${s.cooldown}</div>
