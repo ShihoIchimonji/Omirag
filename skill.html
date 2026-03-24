@@ -37,8 +37,42 @@
         header {
             text-align: center;
             color: var(--accent-gold);
-            margin-bottom: 40px;
+            margin-bottom: 30px;
             text-shadow: 0 0 15px rgba(212, 175, 55, 0.5), 2px 2px 5px rgba(0,0,0,0.8);
+        }
+
+        /* 新增：搜索栏样式 */
+        .search-container {
+            width: 100%;
+            margin-bottom: 20px;
+            position: relative;
+        }
+
+        #skill-search {
+            width: 100%;
+            padding: 15px 20px;
+            box-sizing: border-box;
+            background: var(--paper-darker);
+            background-image: url('https://www.transparenttextures.com/patterns/paper-fibers.png');
+            border: 2px solid var(--border-brown);
+            color: var(--text-main);
+            font-size: 1.1em;
+            font-family: inherit;
+            outline: none;
+            box-shadow: 4px 4px 15px rgba(0,0,0,0.5);
+            transition: all 0.3s;
+        }
+
+        #skill-search:focus {
+            border-color: var(--accent-gold);
+            box-shadow: 0 0 15px var(--accent-gold);
+            background: var(--paper-base);
+        }
+
+        #skill-search::placeholder {
+            color: #7b5e57;
+            opacity: 0.7;
+            font-style: italic;
         }
 
         .filter-panel {
@@ -163,6 +197,11 @@
         <p style="color: var(--paper-darker); opacity: 0.8;">—— 冒险者协会粹晶库索引系统 ——</p>
     </header>
 
+    <!-- 新增：搜索栏 -->
+    <div class="search-container">
+        <input type="text" id="skill-search" placeholder="🔍 输入技能名称、效果关键词进行检索 (例如：位移、治愈)...">
+    </div>
+
     <div class="filter-panel">
         <div class="filter-row">
             <div class="filter-label">粹晶评级</div>
@@ -207,7 +246,6 @@
                 <button class="filter-btn" data-cat="attrs" data-val="意志">意志</button>
             </div>
         </div>
-        <!-- 新增：元素筛选行 -->
         <div class="filter-row">
             <div class="filter-label">元素属性</div>
             <div class="filter-options" id="filter-element">
@@ -336,24 +374,36 @@
     const classMap = { warrior: "战士", ranger: "游侠", mage: "术法", guardian: "守护者" };
     const elColorMap = { "水": "el-water", "火": "el-fire", "雷": "el-thunder", "风": "el-wind", "光": "el-light", "暗": "el-dark", "生命": "el-life", "大地": "el-earth", "空间": "el-space" };
 
-    // 初始化筛选器，增加 elements 字段
-    let activeFilters = { grade: 'all', classes: 'all', traits: 'all', attrs: 'all', elements: 'all' };
+    // 增加 searchTerm 状态
+    let activeFilters = { 
+        grade: 'all', 
+        classes: 'all', 
+        traits: 'all', 
+        attrs: 'all', 
+        elements: 'all',
+        searchTerm: '' 
+    };
 
     function render() {
         const container = document.getElementById('skill-display');
         container.innerHTML = '';
 
         const filtered = skillDatabase.filter(s => {
-            return (activeFilters.grade === 'all' || s.grade === activeFilters.grade) &&
+            // 搜索词过滤逻辑 (名称或描述匹配)
+            const searchLower = activeFilters.searchTerm.toLowerCase();
+            const matchesSearch = s.title.toLowerCase().includes(searchLower) || 
+                                 s.desc.toLowerCase().includes(searchLower);
+
+            return matchesSearch &&
+                   (activeFilters.grade === 'all' || s.grade === activeFilters.grade) &&
                    (activeFilters.classes === 'all' || s.classes.includes(activeFilters.classes)) &&
                    (activeFilters.traits === 'all' || s.traits.includes(activeFilters.traits)) &&
                    (activeFilters.attrs === 'all' || s.attrs.includes(activeFilters.attrs)) &&
-                   // 新增：判断技能的元素数组中是否包含选中的元素
                    (activeFilters.elements === 'all' || s.elements.includes(activeFilters.elements));
         });
 
         if (filtered.length === 0) {
-            container.innerHTML = '<p style="grid-column: 1/-1; text-align:center; color: white; padding: 50px;">未发现符合条件的粹晶。</p>';
+            container.innerHTML = '<p style="grid-column: 1/-1; text-align:center; color: white; padding: 50px; opacity: 0.6;">未发现符合条件的粹晶或技能。</p>';
             return;
         }
 
@@ -385,6 +435,7 @@
     }
 
     window.onload = function() {
+        // 绑定按钮点击事件
         const buttons = document.querySelectorAll('.filter-btn');
         buttons.forEach(btn => {
             btn.addEventListener('click', function() {
@@ -396,6 +447,14 @@
                 render();
             });
         });
+
+        // 绑定搜索框输入事件
+        const searchInput = document.getElementById('skill-search');
+        searchInput.addEventListener('input', function(e) {
+            activeFilters.searchTerm = e.target.value;
+            render();
+        });
+
         render();
     };
 </script>
